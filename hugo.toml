@@ -1,11 +1,9 @@
 
-# 🌐 Configuración base para Project Page
 baseURL = "https://RaTFl.github.io/Netrunner/"
 languageCode = "es"
 title = "The Netrunner Blog"
 theme = "hugo-theme-terminal"
 
-# 📝 Metadatos del sitio
 [params]
   description = "Walkthroughs, laboratorios y análisis de ciberseguridad"
   themeColor = "dark"
@@ -15,7 +13,6 @@ theme = "hugo-theme-terminal"
   customCSS = ["css/custom.css"]
   customJS = ["js/skull.js"]
 	
-  # 🔗 Iconos sociales (ajusta con tus enlaces reales)
   [[params.socialIcons]]
     name = "github"
     url = "https://github.com/RaTFl"
@@ -23,14 +20,12 @@ theme = "hugo-theme-terminal"
     name = "linkedin"
     url = "https://www.linkedin.com/in/ra%C3%BAl-torres-733061400/"
 
-# 🎨 Resaltado de código (estilo oscuro para terminal)
 [markup.highlight]
   style = "monokai"
   guessSyntax = true
   tabWidth = 4
   anchorLineNos = true
 
-# 📤 Outputs para RSS y SEO
 [outputs]
   home = ["HTML", "RSS"]
 
