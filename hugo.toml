@@ -1,5 +1,5 @@
 
-baseURL = "https://RaTFl.github.io/Netrunner/"
+baseURL = "https://ratfl.github.io/Netrunner/"
 languageCode = "es"
 title = "The Netrunner Blog"
 theme = "hugo-theme-terminal"
