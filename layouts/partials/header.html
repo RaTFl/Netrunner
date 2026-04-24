@@ -1,0 +1,22 @@
+<header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="{{ .Site.BaseURL }}">
+        <div class="logo" style="font-family: monospace;">
+          {{ .Site.Params.Logo.Text | default .Site.Title }}
+        </div>
+      </a>
+      {{ with .Site.Params.Subtitle }}
+      <div class="subtitle" style="
+        font-size: 0.85em; 
+        opacity: 0.7; 
+        margin-top: 5px; 
+        font-family: monospace;
+        color: #888;
+      ">
+        {{ . }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</header>

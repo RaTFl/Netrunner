@@ -5,13 +5,15 @@ title = "The Netrunner Blog"
 theme = "hugo-theme-terminal"
 
 [params]
+  [params.logo]
+    text = "The Netrunner Blog"
+
+  subtitle = "Walkthroughs, laboratorios y análisis de Ciberseguridad"
   description = "Walkthroughs, laboratorios y análisis de ciberseguridad"
   themeColor = "dark"
   showReadingTime = true
   showCodeCopyButtons = true
-  images = ["img/netrunner-banner.png"]
   customCSS = ["css/custom.css"]
-  customJS = ["js/skull.js"]
 	
   [[params.socialIcons]]
     name = "github"
