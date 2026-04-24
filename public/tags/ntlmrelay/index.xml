@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NTLMRelay on The Netrunner Blog</title>
+    <link>http://localhost:1313/Netrunner/tags/ntlmrelay/</link>
+    <description>Recent content in NTLMRelay on The Netrunner Blog</description>
+    <generator>Hugo</generator>
+    <language>es</language>
+    <lastBuildDate>Wed, 22 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/Netrunner/tags/ntlmrelay/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Análisis de Ataque NTLM Relay en HTB Reaper</title>
+      <link>http://localhost:1313/Netrunner/posts/reaper-ntlm-relay/</link>
+      <pubDate>Wed, 22 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/posts/reaper-ntlm-relay/</guid>
+      <description>&lt;p&gt; &lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;reaper0.png&#34; alt=&#34;Fig 1&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;h2 id=&#34;descripción&#34;&gt;&lt;code&gt;Descripción&lt;/code&gt;&lt;/h2&gt;&#xA;&lt;p&gt;Reaper es un Sherlock very easy que cubre los ataques de retransmisión NTLM, incluyendo análisis forense de Active Directory, detección de ataques Man-in-the-Middle y análisis forense de redes. En este Sherlock, los jugadores analizarán el tráfico de red y los registros de eventos de Windows para encontrar evidencia de ataques de retransmisión NTLM, comunes en entornos de Active Directory.&lt;/p&gt;&#xA;&lt;h2 id=&#34;escenario&#34;&gt;&lt;code&gt;Escenario&lt;/code&gt;&lt;/h2&gt;&#xA;&lt;p&gt;Nuestro SIEM nos alertó sobre un inicio de sesión sospechoso que requiere atención inmediata. La alerta indicaba una discrepancia entre la dirección IP y el nombre de la estación de trabajo de origen. Se le proporciona una captura de red y registros de eventos del período cercano al incidente. Correlacione la evidencia proporcionada e informe a su gerente del SOC.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

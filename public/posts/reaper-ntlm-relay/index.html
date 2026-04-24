@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/Netrunner/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=Netrunner/livereload" data-no-instant defer></script>
+  
+    <title>Análisis de Ataque NTLM Relay en HTB Reaper :: The Netrunner Blog</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Análisis y correlación de PCAP &#43; EVTX log para detectar y mitigar un ataque de retransmisión NTLM en entorno AD." />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="http://localhost:1313/Netrunner/posts/reaper-ntlm-relay/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/code.min.d529ea4b2fb8d34328d7d31afc5466d5f7bc2f0bc9abdd98b69385335d7baee4.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="http://localhost:1313/Netrunner/favicon.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/Netrunner/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Análisis de Ataque NTLM Relay en HTB Reaper">
+<meta property="og:description" content="Análisis y correlación de PCAP &#43; EVTX log para detectar y mitigar un ataque de retransmisión NTLM en entorno AD." />
+<meta property="og:url" content="http://localhost:1313/Netrunner/posts/reaper-ntlm-relay/" />
+<meta property="og:site_name" content="The Netrunner Blog" />
+
+  <meta property="og:image" content="http://localhost:1313/Netrunner/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2026-04-22 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/Netrunner/css/custom.css">
+
+
+</head>
+<body>
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="http://localhost:1313/Netrunner/">
+  <div class="logo">
+    Terminal
+  </div>
+</a>
+
+    </div>
+    
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="http://localhost:1313/Netrunner/posts/reaper-ntlm-relay/">Análisis de Ataque NTLM Relay en HTB Reaper</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2026-04-22</time></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="http://localhost:1313/Netrunner/tags/ntlmrelay/">NTLMRelay</a>&nbsp;
+      
+      #<a href="http://localhost:1313/Netrunner/tags/blueteam/">BlueTeam</a>&nbsp;
+      
+      #<a href="http://localhost:1313/Netrunner/tags/wireshark/">Wireshark</a>&nbsp;
+      
+      #<a href="http://localhost:1313/Netrunner/tags/windowsforensics/">WindowsForensics</a>&nbsp;
+      
+      #<a href="http://localhost:1313/Netrunner/tags/activedirectory/">ActiveDirectory</a>&nbsp;
+      
+      #<a href="http://localhost:1313/Netrunner/tags/dfir/">DFIR</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p> </p>
+<p><img src="reaper0.png" alt="Fig 1"></p>
+<p> </p>
+<h2 id="descripción"><code>Descripción</code><a href="#descripción" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Reaper es un Sherlock very easy que cubre los ataques de retransmisión NTLM, incluyendo análisis forense de Active Directory, detección de ataques Man-in-the-Middle y análisis forense de redes. En este Sherlock, los jugadores analizarán el tráfico de red y los registros de eventos de Windows para encontrar evidencia de ataques de retransmisión NTLM, comunes en entornos de Active Directory.</p>
+<h2 id="escenario"><code>Escenario</code><a href="#escenario" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Nuestro SIEM nos alertó sobre un inicio de sesión sospechoso que requiere atención inmediata. La alerta indicaba una discrepancia entre la dirección IP y el nombre de la estación de trabajo de origen. Se le proporciona una captura de red y registros de eventos del período cercano al incidente. Correlacione la evidencia proporcionada e informe a su gerente del SOC.</p>
+<h2 id="preparación"><code>Preparación</code><a href="#preparación" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Como primer paso para empezar con la resolución de este Sherlock debemos de descargar el archivo .zip de la plataforma Hack The Box, al descomprimirlo obtendremos una captura de red llamada <strong>ntlmrelay.pcap</strong>  y el log de seguridad de Windows <strong>Security.evtx</strong>.
+Como el análisis lo realizare desde una máquina Linux, necesitare dos herramientas:
+<code>evtx_dump.py:</code> Nos permitirá convertir archivos de registro de eventos de Windows (<code>.evtx</code>) en formatos legibles como XML o JSON, facilitando analizar logs de Windows en Linux.
+<code>Wireshark:</code> Para analizar el archivo <code>.pcapng</code> y de esta forma filtrar e inspeccionar el tráfico de red capturado.</p>
+<p><img src="reaper1.png" alt="Fig 2"></p>
+<p><img src="2.png" alt="Fig 3"></p>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="resolución-del-laboratorio">Resolución del Laboratorio<a href="#resolución-del-laboratorio" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h3 id="task-1-what-is-the-ip-address-for-forela-wkstn001"><code>Task 1:</code> What is the IP Address for Forela-Wkstn001?<a href="#task-1-what-is-the-ip-address-for-forela-wkstn001" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>La primera tarea que se nos asigna consiste en identificar la dirección IP de la estación de trabajo <code>Forela-Wkstn001</code>. Para encontrar la IP filtramos por el protocolo nbns (NetBIOS Name Service), podremos ver que la IP <strong>172.17.79.129</strong> esta enviando un paquete nbns a la IP 172.17.79.2 (Posible DC o servidor WINS), esto es equivalente a que la máquina se presente diciendo: <code>&quot;Hola, soy FORELA-WKSTNO01 y mi IP es 172.17.79.129”.</code></p>
+<p><img src="3.png" alt="Fig 4"></p>
+<p> </p>
+<h3 id="respuesta-17217791-"><code>Respuesta:</code> 172.17.79.1 ✔️<a href="#respuesta-17217791-" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p> </p>
+<hr>
+<p> </p>
+<h3 id="task-2-what-is-the-ip-address-for-forela-wkstn002"><code>Task 2:</code> What is the IP Address for Forela-Wkstn002<a href="#task-2-what-is-the-ip-address-for-forela-wkstn002" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>En esta tarea se nos pide dar con la dirección IP de <code>Forela-Wkstn002</code>, si miramos un poco más abajo podremos encontrar la dirección IP de esta segunda estación de trabajo.</p>
+<p><img src="4.png" alt="Fig 5"></p>
+<p> </p>
+<h3 id="respuesta-1721779136-"><code>Respuesta:</code> 172.17.79.136** ✔️<a href="#respuesta-1721779136-" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p> </p>
+<hr>
+<p> </p>
+<h3 id="task-3-what-is-the-username-of-the-account-whose-hash-was-stolen-by-attacker"><code>Task 3:</code> What is the username of the account whose hash was stolen by attacker?<a href="#task-3-what-is-the-username-of-the-account-whose-hash-was-stolen-by-attacker" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>En este tercer encargo debemos de encontrar el nombre del usuario cuyo hash fue robado por el atacante, filtraremos en Wireshark por el protocolo <code>ntlmssp</code> el cual es un protocolo de autenticación de Microsoft que utiliza un mecanismo de &ldquo;desafío-respuesta&rdquo; para verificar la identidad de los usuarios sin enviar contraseñas directamente por la red. El ataque de <code>NTLM Relay</code> aprovecha la estructura de los mensajes que transporta <code>ntlmssp</code> para engañar a un servidor y permitir que un atacante suplante a un usuario legítimo.</p>
+<p>En los primeros paquetes se puede apreciar el proceso de negociación <code>ntlmssp</code>, siendo el tercer paquete (de arriba hacía abajo) el cual contiene el nombre del usuario que buscamos.</p>
+<p><img src="5.png" alt="Fig 6"></p>
+<p> </p>
+<p>Podemos confirmarlo analizando el log <strong>Security.evtx</strong> con la herramienta <strong>evtx_dump.py</strong>. En el output del comando se aprecia lo siguiente:</p>
+<p><strong>TargetUserName</strong>: arthur.kyle</p>
+<p><strong>TargetDomainName</strong>: FORELA</p>
+<p><strong>LogonType</strong>: 3  (Autenticación de red SMB)</p>
+<p><strong>LogonProcessName</strong>: NtLmSsp  (Proceso NTLM SSP)</p>
+<p><strong>AuthenticationPackageName</strong>: NTLM (Protocolo NTLM)</p>
+<p><strong>Computer</strong>: Forela-Wkstn001.forela.local (Máquina donde se validó el hash)</p>
+<p>Aunque las credenciales pertenecen a <code>arthur.kyle</code> (quien opera normalmente desde la IP <code>.136</code>), la conexión técnica para validar esas credenciales se originó desde un punto distinto para acceder a la IP <code>.135</code>.</p>
+<p><img src="6.png" alt="Fig 7"></p>
+<p> </p>
+<h3 id="respuesta-arthurkyle-"><code>Respuesta:</code> arthur.kyle ✔️<a href="#respuesta-arthurkyle-" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p> </p>
+<hr>
+<p> </p>
+<h3 id="task-4-what-is-the-ip-address-of-unknown-device-used-by-the-attacker-to-intercept-credentials"><code>Task 4:</code> What is the IP Address of Unknown Device used by the attacker to intercept credentials?<a href="#task-4-what-is-the-ip-address-of-unknown-device-used-by-the-attacker-to-intercept-credentials" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>La respuesta a esta pregunta se puede deducir de la captura de Wireshark vista anteriormente, ya que la IP <code>.135</code> actuó como el relay NTLM, recibió la autenticación legítima de <code>arthur.kyle</code> desde la <code>.136</code>, capturó el hash NTLM, y lo retransmitió hacia <code>Forela-Wkstn001 (IP .129)</code> para obtener acceso no autorizado a recursos del dominio.</p>
+<p><img src="7.png" alt="Fig 8"></p>
+<p> </p>
+<h3 id="respuesta-1721779135-"><code>Respuesta:</code> 172.17.79.135** ✔️<a href="#respuesta-1721779135-" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p> </p>
+<hr>
+<p> </p>
+<h3 id="task-5-what-was-the-fileshare-navigated-by-the-victim-user-account"><code>Task 5:</code> What was the fileshare navigated by the victim user account?<a href="#task-5-what-was-the-fileshare-navigated-by-the-victim-user-account" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>En la quinta tarea nos preguntan cual es el fileshare al que intento acceder la víctima. Para dar con el nombre del share podemos filtrar por smb2 (protocolo relacionado a fileshare y recursos compartidos) junto con la IP de la víctima <code>.136</code> (arthur.kyle), debemos de fijarnos en los campos <code>Tree Connect Request</code> Tree lo cual indica que el cliente está intentando acceder a una carpeta compartida específica,  podemos ver múltiples mensajes de error seguidos de solicitudes de conexión a <code>\\DC01\Trip</code>.</p>
+<p>En el paquete n.º 1411 se puede ver un intento de conexión a <code>\\DC01\IPC$</code> esto se debe descartarse ya que el sistema se conecta a él automáticamente como parte de la negociación inicial de SMB</p>
+<p><code>Nota: \\DC01\Trip</code> no es un recurso real, sino un nombre de destino ficticio. Su función es forzar a la víctima a iniciar una negociación SMB. Al hacerlo, la víctima envía su desafío/respuesta NTLM, lo que permite al atacante interceptar y retransmitir (Relay) dicha autenticación hacia otro objetivo para ganar acceso sin conocer la contraseña. El error <code>BAD_NETWORK_NAME</code>visto en Wireshark es la prueba forense de que el recurso era falso.</p>
+<p><img src="8.png" alt="Fig 9"></p>
+<p> </p>
+<h3 id="respuesta-dc01trip-"><code>Respuesta:</code> \DC01\Trip ✔️<a href="#respuesta-dc01trip-" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p> </p>
+<hr>
+<p> </p>
+<h3 id="task-6-what-is-the-source-port-used-to-logon-to-target-workstation-using-the-compromised-account"><code>Task 6:</code> What is the source port used to logon to target workstation using the compromised account?<a href="#task-6-what-is-the-source-port-used-to-logon-to-target-workstation-using-the-compromised-account" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>En esta tarea debemos de dar con el puerto de origen utilizado para logearse a la máquina objetivo, si filtramos el log de la siguiente forma podremos dar con el puerto:<br>
+<code>evtx_dump.py Security.evtx | grep -E -A 40 &quot;4624|NtlmSSP&quot; | grep -E &quot;IpPort\&quot;&gt;[1-9][0-9]&quot; -B 33</code><br>
+<code>Nota:</code> Se utiliza una regex para indicar que se busca un campo IpPort diferente de “0” con el fin de filtrar el exceso de ruido.</p>
+<p><img src="9.png" alt="Fig 10"></p>
+<p> </p>
+<p>Datos clave del output de evtx_dump.py:
+<strong>EventID 4624:</strong> Indicativo de un inicio de sesión correcto.</p>
+<p><strong>SystemTime=“2024-07-31 04:55:16.240589”:</strong> De utilidad para hacer correlación con otra evidencia, el pcapng por ejemplo.</p>
+<p><strong>TargetUserName&gt; arthur.kyle:</strong> Confirma que la cuenta comprometida fue <strong>arthur.kyle</strong>. Como es un ataque de relay, Arthur no puso su contraseña; el atacante &ldquo;retransmitió&rdquo; la prueba de identidad de Arthur desde otra conexión.</p>
+<p><strong>LogonType 3 (Network):</strong> Indica un inicio de sesión a través de la red vía SMB.</p>
+<p><strong>LogonProcessName: NtLmSsp:</strong> Indica que el proceso encargado de la autenticación fue el <code>NTLM Security Support Provider</code> vulnerable a ataques de relay.</p>
+<p><strong>LmPackageName: NTLM V2:</strong> Confirma que se utilizó la versión 2 de NTLM. Aunque es más segura que la V1 contra el crackeo por fuerza bruta, sigue siendo completamente vulnerable a ser retransmitida (relay) si la firma SMB (<strong><em>SMB Signing</em></strong>) no está activada como obligatoria.**</p>
+<p><strong>IpPort: 40252:</strong> Puerto origen de la máquina atacante.</p>
+<p>Se puede confirmar en Wireshark el flujo del relay donde el atacante actúa como un &ldquo;hombre en el medio&rdquo; entre la víctima y el objetivo confirmando que el puerto de destino es el 40252 .</p>
+<p><img src="10.png" alt="Fig 11"></p>
+<p> </p>
+<h3 id="respuesta-40252-"><code>Respuesta:</code> 40252** ✔️<a href="#respuesta-40252-" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p> </p>
+<hr>
+<p> </p>
+<h3 id="task-7-what-is-the-logon-id-for-the-malicious-session"><code>Task 7:</code> What is the Logon ID for the malicious session?<a href="#task-7-what-is-the-logon-id-for-the-malicious-session" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Se nos pide encontrar el ID del login malicioso, este se puede extraer del output del comando <code>evtx_dump.py Security.evtx | grep -E -A 40 &quot;4624|NtlmSSP&quot; | grep -E &quot;IpPort\&quot;&gt;[1-9][0-9]*&quot; -B 33</code> en el campo <code>TargetLogonId</code> solo hay que quitar los “0” de relleno.</p>
+<p><img src="11.png" alt="Fig 12"></p>
+<p> </p>
+<h2 id="respuesta-0x64a799-"><code>Respuesta:</code> 0x64A799 ✔️<a href="#respuesta-0x64a799-" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<hr>
+<p> </p>
+<h3 id="task-8-the-detection-was-based-on-the-mismatch-of-hostname-and-the-assigned-ip-addresswhat-is-the-workstation-name-and-the-source-ip-address-from-which-the-malicious-logon-occur"><code>Task 8:</code> The detection was based on the mismatch of hostname and the assigned IP Address.What is the workstation name and the source IP Address from which the malicious logon occur?<a href="#task-8-the-detection-was-based-on-the-mismatch-of-hostname-and-the-assigned-ip-addresswhat-is-the-workstation-name-and-the-source-ip-address-from-which-the-malicious-logon-occur" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>En la Tarea n°8 nos piden identificar el nombre del workstation y la IP las cuales se usaron para logearse de forma maliciosa y en las cuales hay una discrepancia.
+La dirección IP y el nombre de la estación desde donde ocurrio el login son <code>FORELA-WKSTN002/172.17.79.135</code>, pero la discrepancia de la que habla la pregunta se debe a que el verdadero nombre de esta máquina con IP <code>.135</code> es <code>E90GH1DCE</code>. Esto sucede porque, en un ataque de Relay, el atacante funciona como un impostor, usa su propia conexión física (su IP) pero presenta la identificación de otra persona para engañar al sistema y lograr que le abra la puerta.
+Para dar con el verdadero nombre de la estación de trabajo cuya IP es la <code>.135</code> podemos ayudarnos del protcolo DHCP y encontrar el verdadero hostname antes de que este fuera manipulado por el atacante.</p>
+<p><img src="12.png" alt="Fig 13"></p>
+<p> </p>
+<h3 id="respuesta-forela-wkstn002-1721779135-"><code>Respuesta:</code> FORELA-WKSTN002, 172.17.79.135 ✔️<a href="#respuesta-forela-wkstn002-1721779135-" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p> </p>
+<hr>
+<p> </p>
+<h3 id="task-9-at-what-utc-time-did-the-the-malicious-logon-happen"><code>Task 9:</code> At what UTC time did the the malicious logon happen?<a href="#task-9-at-what-utc-time-did-the-the-malicious-logon-happen" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>La fecha y hora del login “malicioso” aparece en el mismo output del log del evento 4624.</p>
+<p><img src="13.png" alt="Fig 14"></p>
+<p> </p>
+<h3 id="respuesta-2024-07-31-045516-"><code>Respuesta:</code> 2024-07-31 04:55:16 ✔️<a href="#respuesta-2024-07-31-045516-" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p> </p>
+<hr>
+<p> </p>
+<h3 id="task-10-what-is-the-share-name-accessed-as-part-of-the-authentication-process-by-the-malicious-tool-used-by-the-attacker"><code>Task 10:</code> What is the share Name accessed as part of the authentication process by the malicious tool used by the attacker?<a href="#task-10-what-is-the-share-name-accessed-as-part-of-the-authentication-process-by-the-malicious-tool-used-by-the-attacker" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Se nos pide dar con el nombre del Share de red al cual se accede de forma automática como parte del proceso de autenticación, el cual es <code>\\*\IPC$</code> , Windows utiliza un comodin <code>“*”</code> para representa una conexión entrante al canal de comunicación interna, sin importar qué alias o dirección usó el cliente para llegar ahí.</p>
+<p><img src="14.png" alt="Fig 15"></p>
+<p> </p>
+<h3 id="respuesta-ipc-"><code>Respuesta:</code> \*\IPC$ ✔️<a href="#respuesta-ipc-" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="conclusión"><code>Conclusión</code><a href="#conclusión" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>El análisis forense permitió identificar un ataque de <strong>NTLM Relay</strong> exitoso, donde se detectó que el atacante (IP <strong>172.17.79.135</strong>, nombre real <strong>E90GH1DCE</strong>) engañó a un usuario legítimo mediante un recurso señuelo para retransmitir su autenticación hacia un servidor objetivo. Este compromiso fue confirmado al cruzar el tráfico de red (PCAP), que mostraba errores de conexión a rutas inexistentes, con los logs de seguridad (EVTX), donde se evidenció una discrepancia de identidad entre la IP del atacante y el nombre de la víctima. Para mitigar este riesgo, es crítico <strong>requerir el firmado SMB (SMB Signing)</strong> en toda la red, deshabilitar protocolos de resolución de nombres heredados como LLMNR/NBNS y, idealmente, transicionar hacia la autenticación mediante <strong>Kerberos</strong>, que neutraliza este vector de suplantación.</p>
+<p> </p>
+<p><img src="15.png" alt="Fig 16"></p>
+
+      </div></div>
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2026 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/Netrunner/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

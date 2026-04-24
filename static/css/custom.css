@@ -1,0 +1,47 @@
+/* Fondo oscuro con patrón sutil de grilla */
+body {
+    background-color: #050505;
+    background-image: 
+        linear-gradient(rgba(18, 16, 16, 0.5) 50%, rgba(0, 0, 0, 0.25) 50%), 
+        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+}
+
+/* Color del texto estilo Terminal (Verde Ámbar o Matrix) */
+.content, h1, h2, h3, h4, a {
+    color: #e0e0e0 !important; /* blanco */
+    font-family: 'Courier New', Courier, monospace !important;
+}
+
+/* Efecto Scanline (Monitor CRT) */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 0, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none; /* Permite hacer clic a través */
+}
+
+/* Imagen decorativa - DEBUG */
+body::after {
+    content: "";
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 0px;
+    width: 500px;
+    height: 800px;
+    background-image: url('/Netrunner/img/terminal.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.3;
+    z-index: 2;
+    pointer-events: none;
+}

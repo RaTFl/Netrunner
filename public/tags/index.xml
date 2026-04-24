@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on The Netrunner Blog</title>
+    <link>http://localhost:1313/Netrunner/tags/</link>
+    <description>Recent content in Tags on The Netrunner Blog</description>
+    <generator>Hugo</generator>
+    <language>es</language>
+    <lastBuildDate>Wed, 22 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/Netrunner/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ActiveDirectory</title>
+      <link>http://localhost:1313/Netrunner/tags/activedirectory/</link>
+      <pubDate>Wed, 22 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/tags/activedirectory/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>BlueTeam</title>
+      <link>http://localhost:1313/Netrunner/tags/blueteam/</link>
+      <pubDate>Wed, 22 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/tags/blueteam/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>DFIR</title>
+      <link>http://localhost:1313/Netrunner/tags/dfir/</link>
+      <pubDate>Wed, 22 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/tags/dfir/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>NTLMRelay</title>
+      <link>http://localhost:1313/Netrunner/tags/ntlmrelay/</link>
+      <pubDate>Wed, 22 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/tags/ntlmrelay/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>WindowsForensics</title>
+      <link>http://localhost:1313/Netrunner/tags/windowsforensics/</link>
+      <pubDate>Wed, 22 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/tags/windowsforensics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Wireshark</title>
+      <link>http://localhost:1313/Netrunner/tags/wireshark/</link>
+      <pubDate>Wed, 22 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/tags/wireshark/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
