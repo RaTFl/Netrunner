@@ -34,7 +34,7 @@ Si te interesa el DFIR, blue team o seguridad en la nube, este lab te mostrará 
 
 ## `Resolución del Laboratorio`
 
-Para resolver este caso, contamos con dos archivos pcap. El primero `web-server.2025-07-01.pcap`, corresponde a la captura el tráfico del servidor web que funciona como el punto de entrada pública para las peticiones de los usuarios. El segundo, `controller.2025-07-01.pcap`, corresponde al servidor interno que gestiona la nube privada.
+Para resolver este caso, contamos con dos archivos pcap. El primero `web-server.2025-07-01.pcap`, corresponde a la captura del tráfico del servidor web que funciona como el punto de entrada pública para las peticiones de los usuarios. El segundo, `controller.2025-07-01.pcap`, corresponde al servidor interno que gestiona la nube privada.
 Por el nombre de los archivos y la descripción del laboratorio, todo apunta a que el servidor web fue vulnerado primero, y desde ahí los atacantes lograron moverse hacia el controlador de la nube privada en la red interna de la empresa.
 Dicho de otro modo: el servidor web fue la puerta de entrada, y el controller, el verdadero objetivo.
 
