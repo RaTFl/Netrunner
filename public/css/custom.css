@@ -1,3 +1,4 @@
+/* Fondo oscuro con patrón sutil de grilla */
 body {
     background-color: #050505;
     background-image: 
@@ -6,43 +7,104 @@ body {
     background-size: 100% 2px, 3px 100%;
 }
 
+/* Color del texto estilo Terminal */
 .content, h1, h2, h3, h4, a {
-    color: #e0e0e0 !important; /* blanco */
+    color: #e0e0e0 !important;
     font-family: 'Courier New', Courier, monospace !important;
 }
 
-body::before {
-    content: " ";
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 0, 0.06));
-    z-index: 2;
-    background-size: 100% 2px, 3px 100%;
-    pointer-events: none; /* Permite hacer clic a través */
-}
+/* ELIMINADO: Efecto Scanline de monitor antiguo */
 
+/* Imagen con desenfoque gradual en los bordes */
 body::after {
     content: "";
-    display: block;
     position: fixed;
-    bottom: 20px;
-    right: 0px;
-    width: 500px;
-    height: 800px;
+    bottom: 30px;
+    right: 30px;
+    width: 350px;
+    height: 350px;
     background-image: url('/Netrunner/img/terminal.jpg');
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: center;
-    opacity: 0.3;
+    background-position: bottom right;
+    opacity: 0.5;
     z-index: 2;
     pointer-events: none;
+    transition: all 0.2s ease;
+    mask-image: radial-gradient(circle at 70% 70%, black 40%, transparent 90%);
+    -webkit-mask-image: radial-gradient(circle at 70% 70%, black 40%, transparent 90%);
 }
 
+/* Pantallas muy grandes (4K) - aún más grande */
+@media (min-width: 1920px) {
+    body::after {
+        width: 450px;
+        height: 450px;
+        opacity: 0.5;
+    }
+}
 
+/* Tablets grandes - reduce un poco */
+@media (max-width: 1200px) {
+    body::after {
+        width: 280px;
+        height: 280px;
+        opacity: 0.45;
+    }
+}
+
+/* Tablets - sigue siendo visible */
+@media (max-width: 992px) {
+    body::after {
+        width: 220px;
+        height: 220px;
+        opacity: 0.4;
+    }
+}
+
+/* Móviles o zoom - se reduce progresivamente */
+@media (max-width: 768px) {
+    body::after {
+        width: 150px;
+        height: 150px;
+        bottom: 20px;
+        right: 20px;
+        opacity: 0.3;
+    }
+}
+
+@media (max-width: 600px) {
+    body::after {
+        width: 100px;
+        height: 100px;
+        opacity: 0.25;
+    }
+}
+
+@media (max-width: 480px) {
+    body::after {
+        width: 70px;
+        height: 70px;
+        opacity: 0.2;
+    }
+}
+
+@media (max-width: 400px) {
+    body::after {
+        width: 50px;
+        height: 50px;
+        opacity: 0.15;
+    }
+}
+
+/* Zoom extremo - desaparece */
+@media (max-width: 320px) {
+    body::after {
+        display: none;
+    }
+}
+
+/* Subtítulo personalizado */
 body div.container div.header div.header__inner div.header__logo div.logo::after {
     content: "Walkthroughs, laboratorios y análisis de Ciberseguridad" !important;
     display: block !important;

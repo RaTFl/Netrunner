@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cloud on The Netrunner Blog</title>
+    <link>https://ratfl.github.io/Netrunner/tags/cloud/</link>
+    <description>Recent content in Cloud on The Netrunner Blog</description>
+    <generator>Hugo</generator>
+    <language>es</language>
+    <lastBuildDate>Sun, 26 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ratfl.github.io/Netrunner/tags/cloud/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Análisis forense de una brecha en nube privada (OpenStack) Vantage (HTB)</title>
+      <link>https://ratfl.github.io/Netrunner/posts/vantage/</link>
+      <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://ratfl.github.io/Netrunner/posts/vantage/</guid>
+      <description>&lt;p&gt; &lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;0-1.png&#34; alt=&#34;Fig 1&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;h2 id=&#34;el-incidente&#34;&gt;&lt;code&gt;El incidente&lt;/code&gt;&lt;/h2&gt;&#xA;&lt;p&gt;Una empresa migró recursos a una nube privada. Los desarrolladores dejaron una redirección activa en el servidor web. Días después, el equipo de seguridad recibió un correo del atacante: &lt;em&gt;&amp;ldquo;los datos de usuarios están en mi poder&amp;rdquo;&lt;/em&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Solo tenemos dos archivos pcap para descubrir lo que paso 🔎&lt;/p&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;h2 id=&#34;para-quién-es-este-análisis&#34;&gt;&lt;code&gt;¿Para quién es este análisis?&lt;/code&gt;&lt;/h2&gt;&#xA;&lt;p&gt;Si te interesa el DFIR, blue team o seguridad en la nube, este lab te mostrará cómo un atacante real se mueve desde un servidor web expuesto hasta la exfiltración de datos en OpenStack.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

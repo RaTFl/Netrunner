@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Análisis forense de una brecha en nube privada (OpenStack) Vantage (HTB) :: The Netrunner Blog</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="DFIR en nube privada: análisis PCAP para detectar fuzzing, movimiento lateral y persistencia en OpenStack." />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="https://ratfl.github.io/Netrunner/posts/vantage/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/code.min.d529ea4b2fb8d34328d7d31afc5466d5f7bc2f0bc9abdd98b69385335d7baee4.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="https://ratfl.github.io/Netrunner/favicon.png">
+<link rel="apple-touch-icon" href="https://ratfl.github.io/Netrunner/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Análisis forense de una brecha en nube privada (OpenStack) Vantage (HTB)">
+<meta property="og:description" content="DFIR en nube privada: análisis PCAP para detectar fuzzing, movimiento lateral y persistencia en OpenStack." />
+<meta property="og:url" content="https://ratfl.github.io/Netrunner/posts/vantage/" />
+<meta property="og:site_name" content="The Netrunner Blog" />
+
+  <meta property="og:image" content="https://ratfl.github.io/Netrunner/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2026-04-26 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/Netrunner/css/custom.css">
+
+
+</head>
+<body>
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="https://ratfl.github.io/Netrunner/">
+        <div class="logo" style="font-family: monospace;">
+          The Netrunner Blog
+        </div>
+      </a>
+      
+    </div>
+  </div>
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://ratfl.github.io/Netrunner/posts/vantage/">Análisis forense de una brecha en nube privada (OpenStack) Vantage (HTB)</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2026-04-26</time></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="https://ratfl.github.io/Netrunner/tags/cloud/">Cloud</a>&nbsp;
+      
+      #<a href="https://ratfl.github.io/Netrunner/tags/blueteam/">BlueTeam</a>&nbsp;
+      
+      #<a href="https://ratfl.github.io/Netrunner/tags/wireshark/">Wireshark</a>&nbsp;
+      
+      #<a href="https://ratfl.github.io/Netrunner/tags/dfir/">DFIR</a>&nbsp;
+      
+      #<a href="https://ratfl.github.io/Netrunner/tags/mitre-attck/">MITRE ATT&amp;CK</a>&nbsp;
+      
+      #<a href="https://ratfl.github.io/Netrunner/tags/openstack/">OpenStack</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p> </p>
+<p><img src="0-1.png" alt="Fig 1"></p>
+<p> </p>
+<h2 id="el-incidente"><code>El incidente</code><a href="#el-incidente" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Una empresa migró recursos a una nube privada. Los desarrolladores dejaron una redirección activa en el servidor web. Días después, el equipo de seguridad recibió un correo del atacante: <em>&ldquo;los datos de usuarios están en mi poder&rdquo;</em>.</p>
+<p>Solo tenemos dos archivos pcap para descubrir lo que paso 🔎</p>
+<p> </p>
+<h2 id="para-quién-es-este-análisis"><code>¿Para quién es este análisis?</code><a href="#para-quién-es-este-análisis" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Si te interesa el DFIR, blue team o seguridad en la nube, este lab te mostrará cómo un atacante real se mueve desde un servidor web expuesto hasta la exfiltración de datos en OpenStack.</p>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="resolución-del-laboratorio"><code>Resolución del Laboratorio</code><a href="#resolución-del-laboratorio" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Para resolver este caso, contamos con dos archivos pcap. El primero <code>web-server.2025-07-01.pcap</code>, corresponde a la captura el tráfico del servidor web que funciona como el punto de entrada pública para las peticiones de los usuarios. El segundo, <code>controller.2025-07-01.pcap</code>, corresponde al servidor interno que gestiona la nube privada.
+Por el nombre de los archivos y la descripción del laboratorio, todo apunta a que el servidor web fue vulnerado primero, y desde ahí los atacantes lograron moverse hacia el controlador de la nube privada en la red interna de la empresa.
+Dicho de otro modo: el servidor web fue la puerta de entrada, y el controller, el verdadero objetivo.</p>
+<p><img src="1.png" alt="Fig 2"></p>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="task-1-what-tool-did-the-attacker-use-to-fuzz-the-web-server--format--include-version-eg-nmap780">Task 1: What tool did the attacker use to fuzz the web server ? (Format- include version e.g, <a href="mailto:nmap@7.80">nmap@7.80</a>)<a href="#task-1-what-tool-did-the-attacker-use-to-fuzz-the-web-server--format--include-version-eg-nmap780" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Para identificar la herramienta con la que el atacante hizo <code>fuzzing</code> al servidor web, debemos de filtrar el archivo <code>web-server.2025-07-01.pcap</code> por  el término <code>http.request</code>, el tráfico resultante indica una gran cantidad de peticiones realizadas en mili segundos y todas al mismo host, lo que evidencia el uso de una herramienta de automatización del tipo web fuzzer tales como gobuster, Wfuzz, FFuF o similar.
+En los detalles de la capa de aplicación (Hypertext Transfer Protocol), en el valor <code>User-Agent</code> aparece la respuesta a la pregunta.</p>
+<p>El formato de la respuesta debe ser <code>nombre@version</code></p>
+<p><img src="2.png" alt="Fig 3">
+ </p>
+<h2 id="respuesta-ffuf2101"><code>Respuesta:</code> <a href="mailto:ffuf@2.1.01">ffuf@2.1.01</a><a href="#respuesta-ffuf2101" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="task-2-which-subdomain-did-the-attacker-discover">Task 2: Which subdomain did the attacker discover?<a href="#task-2-which-subdomain-did-the-attacker-discover" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>En la tarea 2 nos piden dar con el subdominio que el atacante logro descubrir mediante fuzzing.
+Para no tener que inspeccionar más de 3000 paquetes uno por uno, podemos ir a <strong>Statistics → HTTP → Requests</strong>, se nos abrirá una ventana en la cual debemos filtrar por &ldquo;Count&rdquo;, podremos ver el subdominio con más peticiones (42 peticiones) el cual es <code>cloud.vantage.tech</code>, este dominio respondió con un <code>200 OK</code> o un redirect, al atacante le pareció interesante y siguió enviando más peticiones.</p>
+<p><img src="3.png" alt="Fig 4"></p>
+<p> </p>
+<h2 id="respuesta-cloud"><code>Respuesta:</code> cloud<a href="#respuesta-cloud" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="task-3-how-many-login-attempts-did-the-attacker-make-before-successfully-logging-in-to-the-dashboard">Task 3: How many login attempts did the attacker make before successfully logging in to the dashboard?<a href="#task-3-how-many-login-attempts-did-the-attacker-make-before-successfully-logging-in-to-the-dashboard" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>¿Cuantos intentos de login realizo el atacante antes de poder logearse de forma exitosa en el dashboard?
+Para contestar esta pregunta filtraremos por la dirección IP del atacante y el método http POST, nos encontramos con 4 paquetes, si los inspeccionamos cuidadosamente podremos ver en el campo <code>Refer</code> del primer paquete el parámetro <code>?next=/dashboard/</code> el cual hace referencia a una redirección y no un intento de login, probablemente es el navegador cargando la página de login por primera vez.</p>
+<p><img src="4.png" alt="Fig 5"></p>
+<p> </p>
+<p>En los siguientes <code>tres</code> paquetes se puede ver el campo <code>Refer</code>  normal sin <code>?next=</code> además de varios intentos de login con diferentes credenciales siendo el último POST el exitoso, con el cual se logro acceder al dashboard usando las credenciales <code>username = admin</code> y <code>password = StrongAdminSecret</code>.</p>
+<p><img src="5.png" alt="Fig 6"></p>
+<p> </p>
+<h2 id="respuesta-3"><code>Respuesta:</code> 3<a href="#respuesta-3" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="task-4-when-did-the-attacker-download-the-openstack-api-remote-access-config-file-utc">Task 4: When did the attacker download the OpenStack API remote access config file? (UTC)<a href="#task-4-when-did-the-attacker-download-the-openstack-api-remote-access-config-file-utc" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Para entender esto, primero debemos definir <code>OpenStack</code>: una plataforma de código abierto diseñada para gestionar nubes públicas y privadas. Al descargar el archivo de configuración de la API (<code>openrc</code>), el atacante obtuvo esencialmente &rsquo;las llaves del reino&rsquo;, lo que le permitió manipular toda la infraestructura a su antojo.</p>
+<p>Podemos obervar la captura de la <code>Task 2</code>, en la cual se muestra el dominio <code>cloud.vantage.tech</code> como dominio encontrado por el atacante, unas líneas más abajo se puede ver un par de solicitudes a <code>/dashboard/project/api_acces/openrc/</code></p>
+<p><img src="6.png" alt="Fig 7"></p>
+<p> </p>
+<p>Para mejor visualización cambiaremos el formato de hora a UTC en la pestaña visualización de wireshark y si filtramos por solicitudes a <code>openrc</code>  daremos con la fecha y hora exacta del GET que descargo este archivo, además en uno de los paquetes se revela el nombre exacto de este archivo de configuración  llamado <code>admin-openrc.sh</code>, con el cual se podrá interactuar directamente con la API del controller.</p>
+<p><img src="7.png" alt="Fig 8"></p>
+<p> </p>
+<h2 id="respuesta-2025-07-01-094029"><code>Respuesta:</code> 2025-07-01 09:40:29<a href="#respuesta-2025-07-01-094029" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="task-5-when-did-the-attacker-first-interact-with-the-api-on-controller-node-utc">Task 5: When did the attacker first interact with the API on controller node? (UTC)<a href="#task-5-when-did-the-attacker-first-interact-with-the-api-on-controller-node-utc" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Es momento de inspeccionar la captura de red <code>controller.2025-07-01.pcap</code> , aplicando un filtro sencillo en el cual se especifica la IP del atacante y <code>http.request</code> podremos ver que el paquete n° 8490 es la primera interacción con el controller. En el campo <code>User-Agent</code> se aprecia el cliente de OpenStack siendo ejecutado.</p>
+<p><img src="8.png" alt="Fig 9"></p>
+<p> </p>
+<h2 id="respuesta-2025-07-01-094144"><code>Respuesta:</code> 2025-07-01 09:41:44<a href="#respuesta-2025-07-01-094144" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="task-6-which-openstack-service-provides-authentication-and-authorization-for-the-openstack-api">Task 6: Which OpenStack service provides authentication and authorization for the OpenStack API?<a href="#task-6-which-openstack-service-provides-authentication-and-authorization-for-the-openstack-api" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>La respuesta a esta pregunta se puede deducir de la captura anterior en el mismo User-Agent esta la respuesta:</p>
+<p> </p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>User-Agent: openstacksdk/4.6.0 keystoneauth/5.11.1 python-requests/2.32.4 CPython/3.13.5
+</span></span></code></pre></div><p> </p>
+<p><code>Keystone Auth</code> (o servicio de identidad de OpenStack) es un componente central que verifica la identidad de los usuarios, emite tokens de acceso y gestiona permisos para múltiples inquilinos, actuando como un guardian de la seguridad.</p>
+<p> </p>
+<h2 id="respuesta-keystone"><code>Respuesta:</code> keystone<a href="#respuesta-keystone" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="task-8-what-is-the-endpoint-url-of-the-swift-service">Task 8: What is the endpoint URL of the swift service?<a href="#task-8-what-is-the-endpoint-url-of-the-swift-service" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Swift es el servicio de almacenamiento de objetos de OpenStack (el equivalente a Amazon S3 pero en versión privada). El atacante, después de autenticarse con Keystone, probablemente quiso listar o acceder a los contenedores/buckets para robar o filtrar datos.</p>
+<p>El endpoint de Swift sigue un patrón típico:</p>
+<p> </p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>http://&lt;ip_controller&gt;:&lt;puerto&gt;/v1/&lt;AUTH_project_id&gt;
+</span></span></code></pre></div><p> </p>
+<p>Swift por defecto usa el puerto 8080 (a diferencia de Keystone que usa el 5000 o 8774).</p>
+<p>Filtrando por http y puerto de destino 8080 es posible encontrar la URL del servicio Swift.</p>
+<p><img src="9.png" alt="Fig 10"></p>
+<p> </p>
+<h2 id="respuesta"><code>Respuesta:</code><a href="#respuesta" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h2 id="http134209712208080v1auth_9fb84977ff7c4a0baf0d5dbb57e235c7">http://134.209.71.220:8080/v1/AUTH_9fb84977ff7c4a0baf0d5dbb57e235c7<a href="#http134209712208080v1auth_9fb84977ff7c4a0baf0d5dbb57e235c7" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="task-9-how-many-containers-were-discovered-by-the-attacker">Task 9: How many containers were discovered by the attacker?<a href="#task-9-how-many-containers-were-discovered-by-the-attacker" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Para saber cuántos contenedores descubrió el atacante, se puede seguir el %%  %% <strong>HTTP Stream</strong> del paquete <code>#12892</code> (el primer <code>GET</code> a Swift).
+En los headers de la respuesta, el campo <code>X-Account-Container-Count</code> indica la cantidad de contenedores descubiertos:</p>
+<p><img src="10.png" alt="Fig 11"></p>
+<p> </p>
+<h2 id="respuesta-3-1"><code>Respuesta:</code> 3<a href="#respuesta-3-1" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="task-10-when-did-the-attacker-download-the-sensitive-user-data-file-utc">Task 10: When did the attacker download the sensitive user data file? (UTC)<a href="#task-10-when-did-the-attacker-download-the-sensitive-user-data-file-utc" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Una vez que el atacante listó los contenedores y exploró su contenido, fue directamente por lo que le interesaba: los datos de usuarios.
+En el paquete <code>#16398</code> del pcap del controller, la petición habla por sí sola:</p>
+<p><img src="11.png" alt="Fig 12"></p>
+<p> </p>
+<h2 id="respuesta-2025-07-01-094523"><code>Respuesta:</code> 2025-07-01 09:45:23<a href="#respuesta-2025-07-01-094523" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="task-11-how-many-user-records-are-in-the-sensitive-user-data-file">Task 11: How many user records are in the sensitive user data file?<a href="#task-11-how-many-user-records-are-in-the-sensitive-user-data-file" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Para responder esta pregunta simplemente seguí el <code>http stream</code> del paquete <code>#16398</code> al filtrar por <code>http.request.uri &amp;&amp; tcp.port == 8080</code>. Aparece la lista del registro de usuarios que descargo el atacante.</p>
+<p><img src="12.png" alt="Fig 13"></p>
+<p> </p>
+<p>Para no contar una por una la cantidad de líneas simplemente copie y pegue el contenido del CSV (excluyendo el encabezado) en un archivo de texto para luego poder contabilizar con <code>wc -l</code> desde mi terminal.</p>
+<p><img src="13.png" alt="Fig 14"></p>
+<p> </p>
+<h2 id="respuesta-28"><code>Respuesta:</code> 28<a href="#respuesta-28" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="task-12-for-persistence-the-attacker-created-a-new-user-with-admin-privileges-what-is-the-username-of-the-new-user">Task 12: For persistence, the attacker created a new user with admin privileges. What is the username of the new user?<a href="#task-12-for-persistence-the-attacker-created-a-new-user-with-admin-privileges-what-is-the-username-of-the-new-user" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Para poder ganar persistencia a través de la creación de un nuevo usuario con privilegios de admin, el atacante debe de haber usado la CLI de OpenStack la cual se comunica con Keystone (encargado de la identidad).
+El comando de creación de usuarios sigue una sintaxis como la siguiente:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>openstack user create --password &lt;password&gt; &lt;nombre de usuario&gt;
+</span></span></code></pre></div><p> </p>
+<p>Filtrando por solicitudes POST a través del API de Keystone (<code>/v3/users</code>) damos con el nombre del nuevo usuario creado por el atacante.</p>
+<p><img src="14.png" alt="Fig 15"></p>
+<p> </p>
+<h2 id="respuesta-jellibean"><code>Respuesta:</code> jellibean<a href="#respuesta-jellibean" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="task-13-what-is-the-password-of-the-new-user">Task 13: What is the password of the new user?<a href="#task-13-what-is-the-password-of-the-new-user" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>La respuesta a esta pregunta se puede ver en la captura anterior, en el mismo paquete que reveló la creación del usuario <code>jellibean</code> (n° 20776) . Dentro del JSON de la petición esta la contraseña.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#e6db74">&#34;password&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;P@$#word&#34;</span>
+</span></span></code></pre></div><p> </p>
+<h2 id="respuesta-pword"><code>Respuesta:</code> P@$#word<a href="#respuesta-pword" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="task-14-what-is-mitre-tactic-id-of-the-technique-in-task-12">Task 14: What is MITRE tactic id of the technique in task 12?<a href="#task-14-what-is-mitre-tactic-id-of-the-technique-in-task-12" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>El atacante no solo robó datos, preparó el terreno para volver. Siguiendo el marco MITRE ATT&amp;CK, esta acción se clasifica como <code>T1136.003 (Create Account: Cloud Account)</code>.
+La creación del usuario <code>jellibean</code> vía API (<code>POST /v3/users</code>) es una técnica clásica de persistencia (TA003) Al crear este nuevo usuario con contraseña propia (<code>P@$#word</code>), el atacante se asegura un método de autenticación alternativo que no depende de herramientas de acceso remoto tradicionales, permitiéndole operar a largo plazo sin ser detectado.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Categoría</th>
+          <th>Identificador</th>
+          <th>Nombre</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Táctica</strong></td>
+          <td><code>TA0003</code></td>
+          <td>Persistence</td>
+      </tr>
+      <tr>
+          <td><strong>Técnica</strong></td>
+          <td><code>T1136.003</code></td>
+          <td>Create Account: Cloud Account</td>
+      </tr>
+  </tbody>
+</table>
+<p> </p>
+<h2 id="respuesta-t1136003"><code>Respuesta:</code> T1136.003<a href="#respuesta-t1136003" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="resumen"><code>Resumen</code><a href="#resumen" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p><strong>El atacante:</strong></p>
+<ul>
+<li>Entró por el servidor web (fuzzing + credenciales débiles/reutilizadas)</li>
+<li>Escaló al controlador de la nube privada usando credenciales de API descargadas del dashboard</li>
+<li>Robó un archivo CSV con 28 registros de usuarios</li>
+<li>Dejó una puerta trasera: usuario <code>jellibean</code> con contraseña <code>P@$#word</code> y privilegios de admin</li>
+</ul>
+<p><strong>Para evitarlo:</strong></p>
+<ol>
+<li>WAF + Rate Limiting contra fuzzing</li>
+<li>MFA obligatorio para cuentas administrativas</li>
+<li>TLS en todos los endpoints de la nube privada</li>
+<li>Auditoría de creación de usuarios y asignación de roles</li>
+<li>Cifrado de datos sensibles en reposo</li>
+</ol>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="conclusión"><code>Conclusión</code><a href="#conclusión" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>En este lab aprendí que un punto de entrada aparentemente pequeño puede abrir las puertas a toda una infraestructura en la nube.</p>
+<p>El atacante no necesitó exploits zero day ni herramientas sofisticadas. Con un fuzzing básico (<code>ffuf</code>), un subdominio mal protegido (<code>cloud.vantage.tech</code>), una contraseña administrativa débil o reutilizada (<code>StrongAdminSecret</code>), y una nube privada sin cifrado ni auditoría, pudo:</p>
+<ul>
+<li>
+<p>Moverse lateralmente del servidor web al controlador</p>
+</li>
+<li>
+<p>Exfiltrar datos sensibles de usuarios</p>
+</li>
+<li>
+<p>Dejar una puerta trasera (<code>jellibean</code>) para seguir accediendo</p>
+</li>
+</ul>
+<p><strong><code>La lección:</code></strong> La seguridad en la nube no es solo tecnología, es <strong>configuración, monitoreo y buenas prácticas</strong>. Un WAF, rate limiting, MFA y cifrado habrían parado este ataque en sus primeras fases.</p>
+<p> </p>
+<p><img src="15.png" alt="Fig 16"></p>
+
+      </div></div>
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2026 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/Netrunner/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
