@@ -57,7 +57,7 @@ El formato de la respuesta debe ser `nombre@version`
 &ensp;
 
 
-## `Respuesta:` ffuf@2.1.01 
+## `Respuesta:` ffuf@2.1.0 
 
 
 &ensp;
