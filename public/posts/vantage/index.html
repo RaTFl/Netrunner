@@ -155,7 +155,7 @@
 <p><img src="0-1.png" alt="Fig 1"></p>
 <p> </p>
 <h2 id="el-incidente"><code>El incidente</code><a href="#el-incidente" class="hanchor" ariaLabel="Anchor">#</a> </h2>
-<p>Una empresa migró recursos a una nube privada. Los desarrolladores dejaron una redirección activa en el servidor web. Días después, el equipo de seguridad recibió un correo del atacante: <em>&ldquo;los datos de usuarios están en mi poder&rdquo;</em>.</p>
+<p>Una empresa migró recursos a una nube privada. Los desarrolladores dejaron una redirección activa en el servidor web. Días después, el equipo de seguridad recibió un correo del atacante: <em>&ldquo;los datos de los usuarios están en mi poder&rdquo;</em>.</p>
 <p>Solo tenemos dos archivos pcap para descubrir lo que paso 🔎</p>
 <p> </p>
 <h2 id="para-quién-es-este-análisis"><code>¿Para quién es este análisis?</code><a href="#para-quién-es-este-análisis" class="hanchor" ariaLabel="Anchor">#</a> </h2>
@@ -249,7 +249,7 @@ Para contestar esta pregunta filtraremos por la dirección IP del atacante y el 
 <hr>
 <p> </p>
 <h2 id="task-9-how-many-containers-were-discovered-by-the-attacker">Task 9: How many containers were discovered by the attacker?<a href="#task-9-how-many-containers-were-discovered-by-the-attacker" class="hanchor" ariaLabel="Anchor">#</a> </h2>
-<p>Para saber cuántos contenedores descubrió el atacante, se puede seguir el %%  %% <strong>HTTP Stream</strong> del paquete <code>#12892</code> (el primer <code>GET</code> a Swift).
+<p>Para saber cuántos contenedores descubrió el atacante, se puede seguir el <strong>HTTP Stream</strong> del paquete <code>#12892</code> (el primer <code>GET</code> a Swift).
 En los headers de la respuesta, el campo <code>X-Account-Container-Count</code> indica la cantidad de contenedores descubiertos:</p>
 <p><img src="10.png" alt="Fig 11"></p>
 <p> </p>
@@ -267,7 +267,7 @@ En el paquete <code>#16398</code> del pcap del controller, la petición habla po
 <hr>
 <p> </p>
 <h2 id="task-11-how-many-user-records-are-in-the-sensitive-user-data-file">Task 11: How many user records are in the sensitive user data file?<a href="#task-11-how-many-user-records-are-in-the-sensitive-user-data-file" class="hanchor" ariaLabel="Anchor">#</a> </h2>
-<p>Para responder esta pregunta simplemente seguí el <code>http stream</code> del paquete <code>#16398</code> al filtrar por <code>http.request.uri &amp;&amp; tcp.port == 8080</code>. Aparece la lista del registro de usuarios que descargo el atacante.</p>
+<p>Para responder esta pregunta simplemente seguí el <code>http stream</code> del paquete <code>#16398</code> al filtrar por <code>http.request.uri &amp;&amp; tcp.port == 8080</code>. Se puede ver la lista del registro de usuarios que descargo el atacante.</p>
 <p><img src="12.png" alt="Fig 13"></p>
 <p> </p>
 <p>Para no contar una por una la cantidad de líneas simplemente copie y pegue el contenido del CSV (excluyendo el encabezado) en un archivo de texto para luego poder contabilizar con <code>wc -l</code> desde mi terminal.</p>
@@ -290,7 +290,7 @@ El comando de creación de usuarios sigue una sintaxis como la siguiente:</p>
 <hr>
 <p> </p>
 <h2 id="task-13-what-is-the-password-of-the-new-user">Task 13: What is the password of the new user?<a href="#task-13-what-is-the-password-of-the-new-user" class="hanchor" ariaLabel="Anchor">#</a> </h2>
-<p>La respuesta a esta pregunta se puede ver en la captura anterior, en el mismo paquete que reveló la creación del usuario <code>jellibean</code> (n° 20776) . Dentro del JSON de la petición esta la contraseña.</p>
+<p>La respuesta a esta pregunta se puede ver en la captura anterior, en el mismo paquete que reveló la creación del usuario <code>jellibean</code> (n° 20776). Dentro del JSON de la petición esta la contraseña.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#e6db74">&#34;password&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;P@$#word&#34;</span>
 </span></span></code></pre></div><p> </p>
 <h2 id="respuesta-pword"><code>Respuesta:</code> P@$#word<a href="#respuesta-pword" class="hanchor" ariaLabel="Anchor">#</a> </h2>

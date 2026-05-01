@@ -16,7 +16,7 @@ description: "DFIR en nube privada: análisis PCAP para detectar fuzzing, movimi
 
 ## `El incidente`
 
-Una empresa migró recursos a una nube privada. Los desarrolladores dejaron una redirección activa en el servidor web. Días después, el equipo de seguridad recibió un correo del atacante: *"los datos de usuarios están en mi poder"*.
+Una empresa migró recursos a una nube privada. Los desarrolladores dejaron una redirección activa en el servidor web. Días después, el equipo de seguridad recibió un correo del atacante: *"los datos de los usuarios están en mi poder"*.
 
 Solo tenemos dos archivos pcap para descubrir lo que paso 🔎 
 
@@ -205,7 +205,7 @@ Filtrando por http y puerto de destino 8080 es posible encontrar la URL del serv
 
 ## Task 9: How many containers were discovered by the attacker?
 
-Para saber cuántos contenedores descubrió el atacante, se puede seguir el %%  %% **HTTP Stream** del paquete `#12892` (el primer `GET` a Swift).
+Para saber cuántos contenedores descubrió el atacante, se puede seguir el **HTTP Stream** del paquete `#12892` (el primer `GET` a Swift).
 En los headers de la respuesta, el campo `X-Account-Container-Count` indica la cantidad de contenedores descubiertos:
 
 ![Fig 11](10.png)
@@ -240,7 +240,7 @@ En el paquete `#16398` del pcap del controller, la petición habla por sí sola:
 
 ## Task 11: How many user records are in the sensitive user data file?
 
-Para responder esta pregunta simplemente seguí el `http stream` del paquete `#16398` al filtrar por `http.request.uri && tcp.port == 8080`. Aparece la lista del registro de usuarios que descargo el atacante.
+Para responder esta pregunta simplemente seguí el `http stream` del paquete `#16398` al filtrar por `http.request.uri && tcp.port == 8080`. Se puede ver la lista del registro de usuarios que descargo el atacante.
 
 ![Fig 13](12.png)
 
@@ -288,7 +288,7 @@ Filtrando por solicitudes POST a través del API de Keystone (`/v3/users`) damos
 
 ## Task 13: What is the password of the new user?
 
-La respuesta a esta pregunta se puede ver en la captura anterior, en el mismo paquete que reveló la creación del usuario `jellibean` (n° 20776) . Dentro del JSON de la petición esta la contraseña.
+La respuesta a esta pregunta se puede ver en la captura anterior, en el mismo paquete que reveló la creación del usuario `jellibean` (n° 20776). Dentro del JSON de la petición esta la contraseña.
 
 ```json
 "password": "P@$#word"

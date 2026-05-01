@@ -156,8 +156,10 @@
 <p> </p>
 <h2 id="descripción"><code>Descripción</code><a href="#descripción" class="hanchor" ariaLabel="Anchor">#</a> </h2>
 <p>Reaper es un Sherlock very easy que cubre los ataques de retransmisión NTLM, incluyendo análisis forense de Active Directory, detección de ataques Man-in-the-Middle y análisis forense de redes. En este Sherlock, los jugadores analizarán el tráfico de red y los registros de eventos de Windows para encontrar evidencia de ataques de retransmisión NTLM, comunes en entornos de Active Directory.</p>
+<p> </p>
 <h2 id="escenario"><code>Escenario</code><a href="#escenario" class="hanchor" ariaLabel="Anchor">#</a> </h2>
 <p>Nuestro SIEM nos alertó sobre un inicio de sesión sospechoso que requiere atención inmediata. La alerta indicaba una discrepancia entre la dirección IP y el nombre de la estación de trabajo de origen. Se le proporciona una captura de red y registros de eventos del período cercano al incidente. Correlacione la evidencia proporcionada e informe a su gerente del SOC.</p>
+<p> </p>
 <h2 id="preparación"><code>Preparación</code><a href="#preparación" class="hanchor" ariaLabel="Anchor">#</a> </h2>
 <p>Como primer paso para empezar con la resolución de este Sherlock debemos de descargar el archivo .zip de la plataforma Hack The Box, al descomprimirlo obtendremos una captura de red llamada <strong>ntlmrelay.pcap</strong>  y el log de seguridad de Windows <strong>Security.evtx</strong>.
 Como el análisis lo realizare desde una máquina Linux, necesitare dos herramientas:
@@ -170,7 +172,7 @@ Como el análisis lo realizare desde una máquina Linux, necesitare dos herramie
 <p> </p>
 <h2 id="resolución-del-laboratorio">Resolución del Laboratorio<a href="#resolución-del-laboratorio" class="hanchor" ariaLabel="Anchor">#</a> </h2>
 <h3 id="task-1-what-is-the-ip-address-for-forela-wkstn001"><code>Task 1:</code> What is the IP Address for Forela-Wkstn001?<a href="#task-1-what-is-the-ip-address-for-forela-wkstn001" class="hanchor" ariaLabel="Anchor">#</a> </h3>
-<p>La primera tarea que se nos asigna consiste en identificar la dirección IP de la estación de trabajo <code>Forela-Wkstn001</code>. Para encontrar la IP filtramos por el protocolo nbns (NetBIOS Name Service), podremos ver que la IP <strong>172.17.79.129</strong> esta enviando un paquete nbns a la IP 172.17.79.2 (Posible DC o servidor WINS), esto es equivalente a que la máquina se presente diciendo: <code>&quot;Hola, soy FORELA-WKSTNO01 y mi IP es 172.17.79.129”.</code></p>
+<p>La primera tarea que se nos asigna consiste en identificar la dirección IP de la estación de trabajo <code>Forela-Wkstn001</code>. Para encontrar la IP debemos de filtrar por el protocolo nbns (NetBIOS Name Service), podremos ver que la IP <strong>172.17.79.129</strong> esta enviando un paquete nbns a la IP 172.17.79.2 (Posible DC o servidor WINS), esto es equivalente a que la máquina se presente diciendo: <code>&quot;Hola, soy FORELA-WKSTNO01 y mi IP es 172.17.79.129”.</code></p>
 <p><img src="3.png" alt="Fig 4"></p>
 <p> </p>
 <h3 id="respuesta-17217791-"><code>Respuesta:</code> 172.17.79.1 ✔️<a href="#respuesta-17217791-" class="hanchor" ariaLabel="Anchor">#</a> </h3>
@@ -178,7 +180,7 @@ Como el análisis lo realizare desde una máquina Linux, necesitare dos herramie
 <hr>
 <p> </p>
 <h3 id="task-2-what-is-the-ip-address-for-forela-wkstn002"><code>Task 2:</code> What is the IP Address for Forela-Wkstn002<a href="#task-2-what-is-the-ip-address-for-forela-wkstn002" class="hanchor" ariaLabel="Anchor">#</a> </h3>
-<p>En esta tarea se nos pide dar con la dirección IP de <code>Forela-Wkstn002</code>, si miramos un poco más abajo podremos encontrar la dirección IP de esta segunda estación de trabajo.</p>
+<p>En esta tarea se nos pide dar con la dirección IP de <code>Forela-Wkstn002</code>, si miramos un poco más abajo en el mismo resultado del filtro <code>nbns</code>, podremos encontrar la dirección IP de esta segunda estación de trabajo.</p>
 <p><img src="4.png" alt="Fig 5"></p>
 <p> </p>
 <h3 id="respuesta-1721779136-"><code>Respuesta:</code> 172.17.79.136 ✔️<a href="#respuesta-1721779136-" class="hanchor" ariaLabel="Anchor">#</a> </h3>
@@ -213,8 +215,8 @@ Como el análisis lo realizare desde una máquina Linux, necesitare dos herramie
 <hr>
 <p> </p>
 <h3 id="task-5-what-was-the-fileshare-navigated-by-the-victim-user-account"><code>Task 5:</code> What was the fileshare navigated by the victim user account?<a href="#task-5-what-was-the-fileshare-navigated-by-the-victim-user-account" class="hanchor" ariaLabel="Anchor">#</a> </h3>
-<p>En la quinta tarea nos preguntan cual es el fileshare al que intento acceder la víctima. Para dar con el nombre del share podemos filtrar por smb2 (protocolo relacionado a fileshare y recursos compartidos) junto con la IP de la víctima <code>.136</code> (arthur.kyle), debemos de fijarnos en los campos <code>Tree Connect Request</code> Tree lo cual indica que el cliente está intentando acceder a una carpeta compartida específica,  podemos ver múltiples mensajes de error seguidos de solicitudes de conexión a <code>\\DC01\Trip</code>.</p>
-<p>En el paquete n.º 1411 se puede ver un intento de conexión a <code>\\DC01\IPC$</code> esto se debe descartarse ya que el sistema se conecta a él automáticamente como parte de la negociación inicial de SMB</p>
+<p>En la quinta tarea nos preguntan cual es el fileshare al que intento acceder la víctima. Para dar con el nombre del share podemos filtrar por smb2 (protocolo relacionado a fileshare y recursos compartidos) junto con la IP de la víctima <code>.136</code> (arthur.kyle), debemos de fijarnos en los campos <code>Tree Connect Request Tree</code> lo cual indica que el cliente está intentando acceder a una carpeta compartida específica,  podemos ver múltiples mensajes de error seguidos de solicitudes de conexión a <code>\\DC01\Trip</code>.</p>
+<p>En el paquete n.º 1411 se puede ver un intento de conexión a <code>\\DC01\IPC$</code> esto se debe descartar ya que el sistema se conecta a él automáticamente como parte de la negociación inicial de SMB</p>
 <p><code>Nota: \\DC01\Trip</code> no es un recurso real, sino un nombre de destino ficticio. Su función es forzar a la víctima a iniciar una negociación SMB. Al hacerlo, la víctima envía su desafío/respuesta NTLM, lo que permite al atacante interceptar y retransmitir (Relay) dicha autenticación hacia otro objetivo para ganar acceso sin conocer la contraseña. El error <code>BAD_NETWORK_NAME</code>visto en Wireshark es la prueba forense de que el recurso era falso.</p>
 <p><img src="8.png" alt="Fig 9"></p>
 <p> </p>
@@ -228,18 +230,18 @@ Como el análisis lo realizare desde una máquina Linux, necesitare dos herramie
 <code>Nota:</code> Se utiliza una regex para indicar que se busca un campo IpPort diferente de “0” con el fin de filtrar el exceso de ruido.</p>
 <p><img src="9.png" alt="Fig 10"></p>
 <p> </p>
-<p>Datos clave del output de evtx_dump.py:
-<strong>EventID 4624:</strong> Indicativo de un inicio de sesión correcto.</p>
+<p>Datos clave del output de evtx_dump.py:</p>
+<p><strong>EventID 4624:</strong> Indicativo de un inicio de sesión correcto.</p>
 <p><strong>SystemTime=“2024-07-31 04:55:16.240589”:</strong> De utilidad para hacer correlación con otra evidencia, el pcapng por ejemplo.</p>
 <p><strong>TargetUserName&gt; arthur.kyle:</strong> Confirma que la cuenta comprometida fue <strong>arthur.kyle</strong>. Como es un ataque de relay, Arthur no puso su contraseña; el atacante &ldquo;retransmitió&rdquo; la prueba de identidad de Arthur desde otra conexión.</p>
-<p><strong>LogonType 3 (Network):</strong> Indica un inicio de sesión a través de la red vía SMB.</p>
+<p><strong>LogonType 3 (Network):</strong> Inicio de sesión a través de la red vía SMB.</p>
 <p><strong>LogonProcessName: NtLmSsp:</strong> Indica que el proceso encargado de la autenticación fue el <code>NTLM Security Support Provider</code> vulnerable a ataques de relay.</p>
 <p><strong>LmPackageName: NTLM V2:</strong> Confirma que se utilizó la versión 2 de NTLM. Aunque es más segura que la V1 contra el crackeo por fuerza bruta, sigue siendo completamente vulnerable a ser retransmitida (relay) si la firma SMB (<strong><em>SMB Signing</em></strong>) no está activada como obligatoria.**</p>
 <p><strong>IpPort: 40252:</strong> Puerto origen de la máquina atacante.</p>
 <p>Se puede confirmar en Wireshark el flujo del relay donde el atacante actúa como un &ldquo;hombre en el medio&rdquo; entre la víctima y el objetivo confirmando que el puerto de destino es el 40252 .</p>
 <p><img src="10.png" alt="Fig 11"></p>
 <p> </p>
-<h3 id="respuesta-40252-"><code>Respuesta:</code> 40252** ✔️<a href="#respuesta-40252-" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<h3 id="respuesta-4025-"><code>Respuesta:</code> 4025 ✔️<a href="#respuesta-4025-" class="hanchor" ariaLabel="Anchor">#</a> </h3>
 <p> </p>
 <hr>
 <p> </p>
