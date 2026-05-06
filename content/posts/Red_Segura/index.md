@@ -17,6 +17,22 @@ description: "Mejora de seguridad en una red empresarial altamente vulnerable"
 
 &ensp;
 
+**Parte 1:**
+
+> 📖 _En este post:_
+> 
+> 1. Reconstrucción del ataque
+>     
+> 2. Diseño de red segmentada
+>     
+> 3. VLANs y troncales
+>     
+> 4. STP y root bridge
+>     
+> 5. Seguridad de puertos
+
+
+&ensp;
 ## 🏢 Perfil Corporativo: EcoSea Systems S.A.
 
 **EcoSea Systems** es una empresa líder en la región dedicada al procesamiento, empaque y distribución de productos del mar de alta exportación. Con una planta de operaciones que funciona 24/7, la continuidad de sus servicios digitales es el motor de su cadena de suministro.
