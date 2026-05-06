@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Arquitectura on The Netrunner Blog</title>
+    <link>https://ratfl.github.io/Netrunner/tags/arquitectura/</link>
+    <description>Recent content in Arquitectura on The Netrunner Blog</description>
+    <generator>Hugo</generator>
+    <language>es</language>
+    <lastBuildDate>Sun, 03 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ratfl.github.io/Netrunner/tags/arquitectura/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Diseño e Implementación de Infraestructura de red segura en EcoSea Systems S.A.</title>
+      <link>https://ratfl.github.io/Netrunner/posts/red_segura/</link>
+      <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://ratfl.github.io/Netrunner/posts/red_segura/</guid>
+      <description>&lt;p&gt; &lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;h2 id=&#34;este-proyecto-de-infraestructura-segura-fue-desarrollado-como-caso-de-estudio-de-finalización-de-grado-simulando-un-entorno-empresarial-real-con-vulnerabilidades-críticas-e-infraestructura-expuesta&#34;&gt;&lt;strong&gt;&lt;code&gt;Este proyecto de infraestructura segura fue desarrollado como caso de estudio de finalización de grado, simulando un entorno empresarial real con vulnerabilidades críticas e infraestructura Expuesta&lt;/code&gt;&lt;/strong&gt;&lt;/h2&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;h2 id=&#34;-perfil-corporativo-ecosea-systems-sa&#34;&gt;🏢 Perfil Corporativo: EcoSea Systems S.A.&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;EcoSea Systems&lt;/strong&gt; es una empresa líder en la región dedicada al procesamiento, empaque y distribución de productos del mar de alta exportación. Con una planta de operaciones que funciona 24/7, la continuidad de sus servicios digitales es el motor de su cadena de suministro.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

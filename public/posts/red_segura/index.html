@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Diseño e Implementación de Infraestructura de red segura en EcoSea Systems S.A. :: The Netrunner Blog</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Mejora de seguridad en una red empresarial altamente vulnerable" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="https://ratfl.github.io/Netrunner/posts/red_segura/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/code.min.d529ea4b2fb8d34328d7d31afc5466d5f7bc2f0bc9abdd98b69385335d7baee4.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css">
+
+  
+  <link rel="stylesheet" href="https://ratfl.github.io/Netrunner/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="https://ratfl.github.io/Netrunner/favicon.png">
+<link rel="apple-touch-icon" href="https://ratfl.github.io/Netrunner/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Diseño e Implementación de Infraestructura de red segura en EcoSea Systems S.A.">
+<meta property="og:description" content="Mejora de seguridad en una red empresarial altamente vulnerable" />
+<meta property="og:url" content="https://ratfl.github.io/Netrunner/posts/red_segura/" />
+<meta property="og:site_name" content="The Netrunner Blog" />
+
+  <meta property="og:image" content="https://ratfl.github.io/Netrunner/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2026-05-03 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/Netrunner/css/custom.css">
+
+
+</head>
+<body>
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="https://ratfl.github.io/Netrunner/">
+        <div class="logo" style="font-family: monospace;">
+          The Netrunner Blog
+        </div>
+      </a>
+      
+    </div>
+  </div>
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://ratfl.github.io/Netrunner/posts/red_segura/">Diseño e Implementación de Infraestructura de red segura en EcoSea Systems S.A.</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2026-05-03</time></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="https://ratfl.github.io/Netrunner/tags/redes/">Redes</a>&nbsp;
+      
+      #<a href="https://ratfl.github.io/Netrunner/tags/arquitectura/">Arquitectura</a>&nbsp;
+      
+      #<a href="https://ratfl.github.io/Netrunner/tags/pfsense/">pfSense</a>&nbsp;
+      
+      #<a href="https://ratfl.github.io/Netrunner/tags/dmz/">DMZ</a>&nbsp;
+      
+      #<a href="https://ratfl.github.io/Netrunner/tags/openvpn/">OpenVPN</a>&nbsp;
+      
+      #<a href="https://ratfl.github.io/Netrunner/tags/suricata/">Suricata</a>&nbsp;
+      
+      #<a href="https://ratfl.github.io/Netrunner/tags/wireshark/">Wireshark</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p> </p>
+<hr>
+<p> </p>
+<h2 id="este-proyecto-de-infraestructura-segura-fue-desarrollado-como-caso-de-estudio-de-finalización-de-grado-simulando-un-entorno-empresarial-real-con-vulnerabilidades-críticas-e-infraestructura-expuesta"><strong><code>Este proyecto de infraestructura segura fue desarrollado como caso de estudio de finalización de grado, simulando un entorno empresarial real con vulnerabilidades críticas e infraestructura Expuesta</code></strong><a href="#este-proyecto-de-infraestructura-segura-fue-desarrollado-como-caso-de-estudio-de-finalización-de-grado-simulando-un-entorno-empresarial-real-con-vulnerabilidades-críticas-e-infraestructura-expuesta" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<h2 id="-perfil-corporativo-ecosea-systems-sa">🏢 Perfil Corporativo: EcoSea Systems S.A.<a href="#-perfil-corporativo-ecosea-systems-sa" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p><strong>EcoSea Systems</strong> es una empresa líder en la región dedicada al procesamiento, empaque y distribución de productos del mar de alta exportación. Con una planta de operaciones que funciona 24/7, la continuidad de sus servicios digitales es el motor de su cadena de suministro.</p>
+<h3 id="-ficha-técnica-de-la-organización">📋 Ficha Técnica de la Organización<a href="#-ficha-técnica-de-la-organización" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<ul>
+<li>
+<p><strong><code>Sector:</code></strong> Procesamiento Industrial y Logística Marítima.</p>
+</li>
+<li>
+<p><strong><code>Tamaño:</code></strong> Pequeña-Mediana Empresa (PYME) con una dotación de <strong>30 puestos de trabajo</strong> administrativos y operativos.</p>
+</li>
+</ul>
+<p> </p>
+<h3 id="-el-escenario-de-crisis-estado-inicial">⚠️ El Escenario de Crisis (Estado Inicial)<a href="#-el-escenario-de-crisis-estado-inicial" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Antes de la intervención técnica, EcoSea Systems operaba bajo un modelo de &ldquo;confianza implícita&rdquo;, lo que resultó en una <strong>superficie de ataque crítica</strong>:</p>
+<p><strong><code>1. Red Plana y Silenciosa:</code></strong> Toda la infraestructura compartía un único switch central, con una red sin segmentación y servidor web expuesto al Internet permitiendo el paso a una infección por malware en toda la red alcanzando al servidor de base de datos sensibles.</p>
+<p><strong><code>2. Exposición de Servicios:</code></strong> Servicios críticos como <strong>SSH y RDP</strong> estaban expuestos directamente a Internet sin capas de protección adicionales.</p>
+<p><strong><code>3. Brechas de Seguridad Detectadas:</code></strong></p>
+<ul>
+<li>Múltiples intentos de fuerza bruta en los servicios de acceso remoto.</li>
+<li>Presencia de servicios obsoletos y vulnerables como <code>vsftpd 2.3.4</code> (backdoor conocido).</li>
+</ul>
+<p> </p>
+<h3 id="-objetivos-del-proyecto">🎯 Objetivos del Proyecto<a href="#-objetivos-del-proyecto" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>La gerencia de EcoSea Systems solicitó una reestructuración total bajo tres pilares fundamentales:</p>
+<ul>
+<li>
+<p><strong><code>Seguridad por Diseño:</code></strong> Aislar los departamentos y servicios públicos (DMZ) para contener posibles amenazas mediante creación de VLAN&rsquo;s y reglas de firewall.</p>
+</li>
+<li>
+<p><strong><code>Alta Disponibilidad (Redundancia):</code></strong> Implementar una solución de <strong>doble ISP con Failover</strong> para asegurar que la planta nunca pierda conexión con sus clientes globales.</p>
+</li>
+<li>
+<p><strong><code>Vigilancia Activa (IDS/VPN):</code></strong> Desplegar herramientas de detección de intrusos y túneles cifrados para el acceso administrativo seguro.</p>
+</li>
+</ul>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="-fase-1-diagnóstico-y-análisis-forense-el-incidente">🔍 Fase 1: Diagnóstico y Análisis Forense (El Incidente)<a href="#-fase-1-diagnóstico-y-análisis-forense-el-incidente" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Antes de proponer una nueva arquitectura, realicé una auditoría profunda sobre la infraestructura existente de <strong>EcoSea Systems</strong>. El análisis de los artefactos (Logs de Apache y capturas de tráfico PCAP) reveló una exposición crítica y una serie de intrusiones en curso.</p>
+<blockquote>
+<p><em><strong>Nota:</strong> Los archivos .pcap y logs de Apache mostrados aquí son una <strong>reconstrucción basada en el caso de estudio</strong>. La IP atacante está dentro de la misma red (192.168.20.0/24) para simular un ataque desde un equipo interno comprometido o un movimiento lateral. ¿Por qué hice esto? Porque la institución académica no proporcionó capturas reales, y decidí tomar la iniciativa de construir un escenario forense completo y reproducible.</em></p>
+</blockquote>
+<p> </p>
+<h2 id="-reconstruyendo-el-ataque-a-ecosea-systems-sa-así-se-movió-el-atacante">🔍 Reconstruyendo el ataque a EcoSea Systems S.A.: así se movió el atacante<a href="#-reconstruyendo-el-ataque-a-ecosea-systems-sa-así-se-movió-el-atacante" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<h3 id="-paso-1-el-primer-contacto--escaneo-de-reconocimiento">🚩 Paso 1: El primer contacto — Escaneo de reconocimiento<a href="#-paso-1-el-primer-contacto--escaneo-de-reconocimiento" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Todo ataque comienza con una mirada curiosa. El atacante quiere saber: <strong>¿qué puertos están abiertos?</strong></p>
+<p>Usando Wireshark, filtré por <code>tcp.flags.syn == 1 &amp;&amp; tcp.flags.ack == 0</code> (un tipo de escaneo en el cual no se cierra la conexión). El resultado es evidente:</p>
+<p><img src="wireshark1.png" alt="Fig 1"></p>
+<blockquote>
+<p>Desde <code>192.168.20.10</code> (IP atacante simulada) se lanzaron ráfagas SYN contra múltiples puertos del servidor <code>192.168.20.5</code>: <strong>21, 22, 80, 443, 3306</strong>.</p>
+</blockquote>
+<p>Eso es un <strong>TCP SYN scan</strong> (half-open). El atacante estaba mapeando el terreno sin completar conexiones, justo como haría con una herramienta como Nmap.</p>
+<p> </p>
+<h3 id="-paso-2-subida-de-archivo-malicioso--la-puerta-trasera">🚩 Paso 2: Subida de archivo malicioso — La puerta trasera<a href="#-paso-2-subida-de-archivo-malicioso--la-puerta-trasera" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>La empresa reportó accesos extraños al servidor web. Revisé los logs de Apache con un simple <code>grep &quot;192.168.20.10&quot; access.log</code> y encontré esto:</p>
+<ul>
+<li>
+<p>Un <code>POST</code> al endpoint <code>/upload</code></p>
+</li>
+<li>
+<p>Múltiples <code>GET</code> desde la misma IP después de la subida</p>
+</li>
+</ul>
+<p><strong>Patrón clásico:</strong> el atacante subió un archivo (probablemente una <strong>reverse shell en PHP</strong>) y luego lo ejecutó para ganar acceso remoto.</p>
+<p><img src="log1.png" alt="Fig 2"></p>
+<p> </p>
+<p>Para confirmarlo, volví al <code>.pcap</code> y vi el tráfico de la subida con múltiples solicitudes al endpoint vulnerable.</p>
+<p><img src="wireshark2.png" alt="Fig 3"></p>
+<p> </p>
+<h3 id="-paso-3-fuerza-bruta-a-ssh--insistencia-hasta-lograrlo">🚩 Paso 3: Fuerza bruta a SSH — Insistencia hasta lograrlo<a href="#-paso-3-fuerza-bruta-a-ssh--insistencia-hasta-lograrlo" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Otra anomalía: múltiples intentos de conexión al puerto 22 en muy poco tiempo. Filtré por protocolo SSH en Wireshark y el panorama fue claro:</p>
+<blockquote>
+<p>🔐 Decenas de intentos de login en segundos. Usuarios y contraseñas siendo rechazados uno tras otro.</p>
+</blockquote>
+<p>Crucé esta información con los logs del sistema (<code>auth.log</code>) quedando al descubierto un <strong>ataque de fuerza bruta</strong>. Herramientas como Hydra o Medusa, diccionarios de por medio, probando combinaciones hasta dar con la correcta.</p>
+<p><img src="wireshark3.png" alt="Fig 4">
+<img src="log2.png" alt="Fig 5"></p>
+<p> 
+ </p>
+<h3 id="-paso-4-escaneo-de-vulnerabilidades--lo-que-nmap-descubrió">🚩 Paso 4: Escaneo de vulnerabilidades — Lo que Nmap descubrió<a href="#-paso-4-escaneo-de-vulnerabilidades--lo-que-nmap-descubrió" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Una vez identificados los puertos abiertos, usé <strong>Nmap</strong> con scripts de detección (<code>-sCV</code>) para conocer versiones exactas de los servicios:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sCV -n -p21,22,80,3306 192.168.20.5 -oN Puertos_Servidor
+</span></span></code></pre></div><p><img src="nmap1.png" alt="Fig 6">
+<img src="nmap2.png" alt="Fig 7"></p>
+<p> </p>
+<p>Luego, con <strong>searchsploit</strong> busqué vulnerabilidades públicas para cada versión. El resultado mostró un <strong>alto nivel de compromiso</strong>:</p>
+<p><img src="searchx1.png" alt="Fig 8"></p>
+<p> </p>
+<table>
+  <thead>
+      <tr>
+          <th>Puerto</th>
+          <th>Servicio</th>
+          <th>Versión</th>
+          <th>¿Qué encontré?</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>21</td>
+          <td>FTP</td>
+          <td>vsftpd 2.3.4</td>
+          <td>🔴 Backdoor intencional → ejecución remota de comandos</td>
+      </tr>
+      <tr>
+          <td>22</td>
+          <td>SSH</td>
+          <td>OpenSSH 4.7p1</td>
+          <td>🟡 Versión 2007, claves DSA débiles, fuerza bruta</td>
+      </tr>
+      <tr>
+          <td>80</td>
+          <td>HTTP</td>
+          <td>Apache 2.2.8 + WebDAV</td>
+          <td>🔴 WebDAV permite PUT/DELETE → subida de webshell</td>
+      </tr>
+      <tr>
+          <td>3306</td>
+          <td>MySQL</td>
+          <td>5.0.51a</td>
+          <td>🔴 Múltiples CVEs, acceso remoto posible</td>
+      </tr>
+  </tbody>
+</table>
+<p> </p>
+<h2 id="conclusión">Conclusión<a href="#conclusión" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>El análisis forense confirmó algo grave: <strong>el atacante no necesitó ser un experto</strong>. La infrastructura estaba regalada:</p>
+<ul>
+<li>
+<p>❌ Servidores obsoletos (vsftpd con backdoor, Apache 2008, MySQL 2007)</p>
+</li>
+<li>
+<p>❌ Puertos críticos abiertos a Internet sin restricción</p>
+</li>
+<li>
+<p>❌ Red plana → una vez dentro del servidor web, el atacante ve TODA la red interna</p>
+</li>
+<li>
+<p>❌ Sin HTTPS, sin firewall, sin IDS</p>
+</li>
+</ul>
+<p><strong>La topología plana fue el error fatal.</strong> Comprometer un solo equipo significa comprometerlo todo.</p>
+<p> </p>
+<hr>
+<p> </p>
+<p> </p>
+<h2 id="-fase-2-arquitectura-de-red-diseño-e-implementación">🌐 Fase 2: Arquitectura de Red: Diseño e implementación<a href="#-fase-2-arquitectura-de-red-diseño-e-implementación" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Antes de profundizar en la implementación física, se diseñó una infraestructura lógica centrada en la resiliencia y el aislamiento de amenazas para <strong>EcoSea Systems</strong>.</p>
+<h3 id="especificaciones-de-la-topología">Especificaciones de la Topología<a href="#especificaciones-de-la-topología" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<ul>
+<li><strong><code>Modelo de Red:</code></strong> Diseño de estrella jerárquica utilizando una configuración de <strong>Router-on-a-Stick</strong> para una gestión eficiente del tráfico inter-VLAN.</li>
+</ul>
+<ul>
+<li>
+<p><strong><code>Continuidad de Negocio (HA):</code></strong> Implementación de <strong>Doble WAN (ISP Redundante)</strong> mediante pfSense, configurando un sistema de <em>Failover</em> que garantiza la visibilidad del servidor web incluso ante la caída de un proveedor.</p>
+</li>
+<li>
+<p><strong><code>Estructura Conmutada:</code></strong> Jerarquía de un <strong>Switch Core</strong> conectado a tres switches de acceso, optimizando el ancho de banda y la seguridad a nivel de puerto.</p>
+</li>
+</ul>
+<p> </p>
+<h3 id="-segmentación-lógica-vlans">🔒 Segmentación Lógica (VLANs)<a href="#-segmentación-lógica-vlans" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>La red se dividió en tres segmentos críticos para aplicar el principio de mínimo privilegio:</p>
+<ul>
+<li>
+<p><strong><code>VLAN 10 (LAN Interna):</code></strong> Tráfico de usuarios y estaciones de trabajo</p>
+</li>
+<li>
+<p><strong><code>VLAN 20 (DMZ):</code></strong> Zona aislada para el servidor web expuesto, evitando cualquier contacto directo con la red interna.</p>
+</li>
+<li>
+<p><strong><code>VLAN 30 (Administrativa):</code></strong> Segmento restringido para tareas de gestión y configuración de dispositivos.</p>
+</li>
+</ul>
+<p> </p>
+<p><img src="diagrama.png" alt="Fig 9"></p>
+<p>A continuación, se detallan los componentes clave visualizados en el diagrama:</p>
+<h3 id="perímetro-y-alta-disponibilidad">Perímetro y Alta Disponibilidad<a href="#perímetro-y-alta-disponibilidad" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<ul>
+<li><strong><code>ISP Redundancy:</code></strong> La red cuenta con dos proveedores de servicios (ISP 1 e ISP 2) configurados en el <strong>pfSense</strong>. Esto asegura que los servicios de la empresa permanezcan en línea mediante un mecanismo de failover automático si uno de los enlaces falla.</li>
+</ul>
+<ul>
+<li><strong><code>Gateway Centralizado:</code></strong> El pfSense actúa como el cerebro de la red, gestionando no solo el enrutamiento, sino también el firewall perimetral y el sistema de detección de intrusiones (IDS).</li>
+</ul>
+<h3 id="infraestructura-de-switching">Infraestructura de Switching<a href="#infraestructura-de-switching" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<ul>
+<li><strong><code>Core-to-Access:</code></strong> Se implementó una estructura jerárquica con un <strong>Switch Core</strong> central que distribuye el tráfico hacia tres switches de acceso. Este diseño facilita la escalabilidad y mejora la gestión del ancho de banda interno.</li>
+</ul>
+<ul>
+<li><strong><code>Segmentación por VLANs:</code></strong> Mediante el protocolo <strong>802.1Q</strong>, la red se ha dividido lógicamente para reducir el dominio de difusión y aplicar políticas de seguridad.</li>
+</ul>
+<h3 id="control-de-acceso-y-seguridad-de-capa-3">Control de Acceso y Seguridad de Capa 3<a href="#control-de-acceso-y-seguridad-de-capa-3" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<ul>
+<li><strong><code>Aislamiento de la DMZ:</code></strong> La VLAN 20 está configurada para que el servidor web no tenga visibilidad ni acceso hacia la LAN Interna (VLAN 10), mitigando el riesgo de movimiento lateral en caso de una intrusión.</li>
+</ul>
+<p> </p>
+<hr>
+<p> 
+ </p>
+<h2 id="-configuración-de-la-red-en-packet-tracer">🧱 Configuración de la red en Packet Tracer<a href="#-configuración-de-la-red-en-packet-tracer" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Antes de implementar el firewall, construí la base de la red segmentada:</p>
+<p> </p>
+<h3 id="1-topología-propuesta">1️⃣ <strong>Topología propuesta</strong><a href="#1-topología-propuesta" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><img src="diagrama2.png" alt="Fig 10"></p>
+<p> 
+ </p>
+<p> </p>
+<h3 id="2-router-borde-subinterfaces-y-enrutamiento-inter-vlan-router-on-a-stick">2️⃣ <strong>Router borde: Subinterfaces y enrutamiento inter-VLAN (Router on a stick)</strong><a href="#2-router-borde-subinterfaces-y-enrutamiento-inter-vlan-router-on-a-stick" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p> </p>
+<p><img src="enrutamiento.png" alt="Fig 11"></p>
+<p>Se configuraron subinterfaces en el router borde para actuar como gateway de cada VLAN:</p>
+<ul>
+<li>
+<p><code>G0/0.10</code> → VLAN 10 (LAN interna) con IP <code>192.168.10.1</code></p>
+</li>
+<li>
+<p><code>G0/0.20</code> → VLAN 20 (DMZ) con IP <code>192.168.20.1</code></p>
+</li>
+<li>
+<p><code>G0/0.30</code> → VLAN 30 (Administrativa) con IP <code>192.168.30.1</code></p>
+</li>
+</ul>
+<p> </p>
+<blockquote>
+<p><em>📌 Nota: En la implementación real, este enrutamiento será realizado por <strong>pfSense</strong>. Sin embargo, dado que Packet Tracer no soporta pfSense, se utilizó un router Cisco para <strong>validar la conectividad de la capa de conmutación</strong> (VLANs, trunks, etc.) antes de incorporar el firewall. Una vez validada la base, pfSense asumirá el control añadiendo reglas de firewall, IDS y VPN.</em></p>
+</blockquote>
+<p> </p>
+<h3 id="3-switch-core-troncales-trunks-con-vlans-permitidas">3️⃣ <strong>Switch Core: Troncales (trunks) con VLANs permitidas</strong><a href="#3-switch-core-troncales-trunks-con-vlans-permitidas" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p> </p>
+<h3 id="31-creación-de-vlans"><strong>3.1 Creación de VLANs</strong><a href="#31-creación-de-vlans" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Primero, se crearon las VLANs necesarias para segmentar la red:</p>
+<p><img src="shvlanbrief.png" alt="Fig 12"></p>
+<p> </p>
+<h3 id="32-configuración-del-trunk-principal"><strong>3.2. Configuración del trunk principal</strong><a href="#32-configuración-del-trunk-principal" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>El trunk hacia el router/pfSense se configuró permitiendo <strong>exclusivamente</strong> las VLANs 10, 20 y 30, y se cambió la VLAN nativa a la 998 por seguridad:</p>
+<p><img src="troncal.png" alt="Fig 13"></p>
+<p> </p>
+<blockquote>
+<p>⚠️ <strong>Nota de seguridad:</strong> Al limitar las VLANs permitidas en el trunk, incluso si un atacante compromete el switch, no puede inyectar tráfico de VLANs no autorizadas.</p>
+</blockquote>
+<p> </p>
+<h3 id="4-seguridad-en-puertos-de-acceso-switch-de-acceso-lan">4️⃣ <strong>Seguridad en puertos de acceso (switch de acceso LAN)</strong><a href="#4-seguridad-en-puertos-de-acceso-switch-de-acceso-lan" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Configuración de seguridad en switch de acceso (SW1 - VLAN 10)</p>
+<p><img src="portsecurity.png" alt="Fig 14"></p>
+<p>Se aplicaron múltiples medidas de hardening en los switches de acceso:</p>
+<ul>
+<li>
+<p><strong>En el trunk</strong> (<code>Fa0/1</code>): VLAN nativa cambiada a 998, solo se permite la VLAN 10, y se deshabilita la negociación DTP.</p>
+</li>
+<li>
+<p><strong>En el puerto de acceso</strong> (<code>Fa0/2</code>): Port-security con MAC sticky, PortFast y BPDU Guard para evitar switches no autorizados.</p>
+</li>
+<li>
+<p><strong>A nivel global</strong>: STP Rapid-PVST con prioridad ajustada para evitar que un switch rogue se convierta en root bridge.</p>
+</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th>Switch</th>
+          <th>Función</th>
+          <th>STP Priority</th>
+          <th>Medidas específicas</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>SW-Core</strong></td>
+          <td>Root bridge</td>
+          <td>4096 (más baja)</td>
+          <td>Trunks con <code>allowed vlan</code>, native 998, BPDU Guard en puertos de acceso</td>
+      </tr>
+      <tr>
+          <td><strong>SW1 (LAN)</strong></td>
+          <td>Acceso VLAN 10</td>
+          <td>8192</td>
+          <td>Trunk restringido solo a VLAN 10, port-security, portfast, bpduguard</td>
+      </tr>
+      <tr>
+          <td><strong>SW2 (ADMIN)</strong></td>
+          <td>Acceso VLAN 30</td>
+          <td>8192</td>
+          <td>Trunk restringido a VLAN 10 y 30, mismas medidas de puerto</td>
+      </tr>
+      <tr>
+          <td><strong>SW3 (DMZ)</strong></td>
+          <td>Acceso VLAN 20</td>
+          <td>8192</td>
+          <td>Trunk restringido solo a VLAN 20, <strong>sin acceso a LAN interna</strong></td>
+      </tr>
+  </tbody>
+</table>
+<p> 
+ </p>
+<h3 id="5-prueba-de-conectividad-antes-del-firewall">5️⃣ <strong>Prueba de conectividad (antes del firewall)</strong><a href="#5-prueba-de-conectividad-antes-del-firewall" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Validación de conectividad desde el router borde</p>
+<p><img src="conectividad.png" alt="Fig 15"></p>
+<blockquote>
+<p>Se verifica que el router borde (gateway inter-VLAN) tiene conectividad con:</p>
+<ul>
+<li>
+<p><code>192.168.10.20</code> → PC en VLAN 10 (LAN interna)</p>
+</li>
+<li>
+<p><code>192.168.20.5</code> → Servidor web en VLAN 20 (DMZ)</p>
+</li>
+<li>
+<p><code>200.10.10.1</code> → ISP1 (salida a Internet)</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="ensp"> <a href="#ensp" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<p> </p>
+<p><em>✅ La red ya está segmentada. Las VLANs funcionan. Los puertos están asegurados. Y  se verifico conectividad</em></p>
+<p><em>Pero hay un problema: el tráfico entre VLANs aún fluye sin restricciones. Un atacante en la DMZ podría intentar moverse a la LAN interna.</em></p>
+<p><em>🔒 <strong>En la Parte 2:</strong> Reemplazaremos este router Cisco por <strong>pfSense</strong>, aplicaremos reglas de firewall para aislar la DMZ, configuraremos un IDS (Suricata) para detectar escaneos, y montaremos una VPN para acceso remoto seguro.</em></p>
+<p><em>👉  [Enlace a la Parte 2 - Próximamente]</em></p>
+
+      </div></div>
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2026 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/Netrunner/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

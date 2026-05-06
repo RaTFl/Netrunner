@@ -6,8 +6,57 @@
     <description>Recent content in Tags on The Netrunner Blog</description>
     <generator>Hugo</generator>
     <language>es</language>
-    <lastBuildDate>Sun, 26 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ratfl.github.io/Netrunner/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Arquitectura</title>
+      <link>https://ratfl.github.io/Netrunner/tags/arquitectura/</link>
+      <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://ratfl.github.io/Netrunner/tags/arquitectura/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>DMZ</title>
+      <link>https://ratfl.github.io/Netrunner/tags/dmz/</link>
+      <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://ratfl.github.io/Netrunner/tags/dmz/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>OpenVPN</title>
+      <link>https://ratfl.github.io/Netrunner/tags/openvpn/</link>
+      <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://ratfl.github.io/Netrunner/tags/openvpn/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>PfSense</title>
+      <link>https://ratfl.github.io/Netrunner/tags/pfsense/</link>
+      <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://ratfl.github.io/Netrunner/tags/pfsense/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Redes</title>
+      <link>https://ratfl.github.io/Netrunner/tags/redes/</link>
+      <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://ratfl.github.io/Netrunner/tags/redes/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Suricata</title>
+      <link>https://ratfl.github.io/Netrunner/tags/suricata/</link>
+      <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://ratfl.github.io/Netrunner/tags/suricata/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Wireshark</title>
+      <link>https://ratfl.github.io/Netrunner/tags/wireshark/</link>
+      <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://ratfl.github.io/Netrunner/tags/wireshark/</guid>
+      <description></description>
+    </item>
     <item>
       <title>BlueTeam</title>
       <link>https://ratfl.github.io/Netrunner/tags/blueteam/</link>
@@ -41,13 +90,6 @@
       <link>https://ratfl.github.io/Netrunner/tags/openstack/</link>
       <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://ratfl.github.io/Netrunner/tags/openstack/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Wireshark</title>
-      <link>https://ratfl.github.io/Netrunner/tags/wireshark/</link>
-      <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/wireshark/</guid>
       <description></description>
     </item>
     <item>

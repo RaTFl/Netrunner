@@ -2,6 +2,39 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ratfl.github.io/Netrunner/tags/arquitectura/</loc>
+    <lastmod>2026-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ratfl.github.io/Netrunner/posts/red_segura/</loc>
+    <lastmod>2026-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ratfl.github.io/Netrunner/tags/dmz/</loc>
+    <lastmod>2026-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ratfl.github.io/Netrunner/tags/openvpn/</loc>
+    <lastmod>2026-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ratfl.github.io/Netrunner/tags/pfsense/</loc>
+    <lastmod>2026-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ratfl.github.io/Netrunner/posts/</loc>
+    <lastmod>2026-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ratfl.github.io/Netrunner/tags/redes/</loc>
+    <lastmod>2026-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ratfl.github.io/Netrunner/tags/suricata/</loc>
+    <lastmod>2026-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ratfl.github.io/Netrunner/tags/</loc>
+    <lastmod>2026-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ratfl.github.io/Netrunner/</loc>
+    <lastmod>2026-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ratfl.github.io/Netrunner/tags/wireshark/</loc>
+    <lastmod>2026-05-03T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://ratfl.github.io/Netrunner/posts/vantage/</loc>
     <lastmod>2026-04-26T00:00:00+00:00</lastmod>
   </url><url>
@@ -18,18 +51,6 @@
     <lastmod>2026-04-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ratfl.github.io/Netrunner/tags/openstack/</loc>
-    <lastmod>2026-04-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ratfl.github.io/Netrunner/posts/</loc>
-    <lastmod>2026-04-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ratfl.github.io/Netrunner/tags/</loc>
-    <lastmod>2026-04-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ratfl.github.io/Netrunner/</loc>
-    <lastmod>2026-04-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ratfl.github.io/Netrunner/tags/wireshark/</loc>
     <lastmod>2026-04-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ratfl.github.io/Netrunner/tags/activedirectory/</loc>
