@@ -1,7 +1,7 @@
 
 ---
 
-title: "Diseño e Implementación de Infraestructura de red segura en EcoSea Systems S.A."
+title: "Diseño e Implementación de Infraestructura de red segura Parte 1"
 date: 2026-05-03
 draft: false
 tags: ["Redes", "Arquitectura", "pfSense", "DMZ", "OpenVPN", "Suricata", "Wireshark"]
@@ -13,7 +13,7 @@ description: "Mejora de seguridad en una red empresarial altamente vulnerable"
 ---
 &ensp;
 
-## **`Este proyecto de infraestructura segura fue desarrollado como caso de estudio de finalización de grado, simulando un entorno empresarial real con vulnerabilidades críticas e infraestructura Expuesta`**
+### **Este proyecto de infraestructura segura fue desarrollado como caso de estudio de finalización de grado, simulando un entorno empresarial real con vulnerabilidades críticas e infraestructura Expuesta**
 
 &ensp;
 
@@ -359,10 +359,10 @@ Validación de conectividad desde el router borde
 
 &ensp;
 
-_✅ La red ya está segmentada. Las VLANs funcionan. Los puertos están asegurados. Y  se verifico conectividad_
+### _✅ La red ya está segmentada. Las VLANs funcionan. Los puertos están asegurados. Y  se verifico conectividad_
 
- _Pero hay un problema: el tráfico entre VLANs aún fluye sin restricciones. Un atacante en la DMZ podría intentar moverse a la LAN interna._
+### _Pero hay un problema: el tráfico entre VLANs aún fluye sin restricciones. Un atacante en la DMZ podría intentar moverse a la LAN interna._
 
- _🔒 **En la Parte 2:** Reemplazaremos este router Cisco por **pfSense**, aplicaremos reglas de firewall para aislar la DMZ, configuraremos un IDS (Suricata) para detectar escaneos, y montaremos una VPN para acceso remoto seguro._
+### _🔒 **En la Parte 2:** Reemplazaremos este router Cisco por **pfSense**, aplicaremos reglas de firewall para aislar la DMZ, configuraremos un IDS (Suricata) para detectar escaneos, y montaremos una VPN para acceso remoto seguro._
 
-*👉  [Enlace a la Parte 2 - Próximamente]*
+*👉  [Enlace a la Parte 2](https://ratfl.github.io/Netrunner/posts/red_segura2/)

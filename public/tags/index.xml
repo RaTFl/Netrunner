@@ -2,115 +2,122 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on The Netrunner Blog</title>
-    <link>https://ratfl.github.io/Netrunner/tags/</link>
+    <link>http://localhost:1313/Netrunner/tags/</link>
     <description>Recent content in Tags on The Netrunner Blog</description>
     <generator>Hugo</generator>
     <language>es</language>
-    <lastBuildDate>Sun, 03 May 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://ratfl.github.io/Netrunner/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/Netrunner/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Arquitectura</title>
-      <link>https://ratfl.github.io/Netrunner/tags/arquitectura/</link>
-      <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/arquitectura/</guid>
+      <link>http://localhost:1313/Netrunner/tags/arquitectura/</link>
+      <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/tags/arquitectura/</guid>
       <description></description>
     </item>
     <item>
       <title>DMZ</title>
-      <link>https://ratfl.github.io/Netrunner/tags/dmz/</link>
-      <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/dmz/</guid>
+      <link>http://localhost:1313/Netrunner/tags/dmz/</link>
+      <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/tags/dmz/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hardening</title>
+      <link>http://localhost:1313/Netrunner/tags/hardening/</link>
+      <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/tags/hardening/</guid>
       <description></description>
     </item>
     <item>
       <title>OpenVPN</title>
-      <link>https://ratfl.github.io/Netrunner/tags/openvpn/</link>
-      <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/openvpn/</guid>
+      <link>http://localhost:1313/Netrunner/tags/openvpn/</link>
+      <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/tags/openvpn/</guid>
       <description></description>
     </item>
     <item>
       <title>PfSense</title>
-      <link>https://ratfl.github.io/Netrunner/tags/pfsense/</link>
-      <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/pfsense/</guid>
+      <link>http://localhost:1313/Netrunner/tags/pfsense/</link>
+      <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/tags/pfsense/</guid>
       <description></description>
     </item>
     <item>
       <title>Redes</title>
-      <link>https://ratfl.github.io/Netrunner/tags/redes/</link>
-      <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/redes/</guid>
+      <link>http://localhost:1313/Netrunner/tags/redes/</link>
+      <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/tags/redes/</guid>
       <description></description>
     </item>
     <item>
       <title>Suricata</title>
-      <link>https://ratfl.github.io/Netrunner/tags/suricata/</link>
-      <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/suricata/</guid>
+      <link>http://localhost:1313/Netrunner/tags/suricata/</link>
+      <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/tags/suricata/</guid>
       <description></description>
     </item>
     <item>
       <title>Wireshark</title>
-      <link>https://ratfl.github.io/Netrunner/tags/wireshark/</link>
-      <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/wireshark/</guid>
+      <link>http://localhost:1313/Netrunner/tags/wireshark/</link>
+      <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/tags/wireshark/</guid>
       <description></description>
     </item>
     <item>
       <title>BlueTeam</title>
-      <link>https://ratfl.github.io/Netrunner/tags/blueteam/</link>
+      <link>http://localhost:1313/Netrunner/tags/blueteam/</link>
       <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/blueteam/</guid>
+      <guid>http://localhost:1313/Netrunner/tags/blueteam/</guid>
       <description></description>
     </item>
     <item>
       <title>Cloud</title>
-      <link>https://ratfl.github.io/Netrunner/tags/cloud/</link>
+      <link>http://localhost:1313/Netrunner/tags/cloud/</link>
       <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/cloud/</guid>
+      <guid>http://localhost:1313/Netrunner/tags/cloud/</guid>
       <description></description>
     </item>
     <item>
       <title>DFIR</title>
-      <link>https://ratfl.github.io/Netrunner/tags/dfir/</link>
+      <link>http://localhost:1313/Netrunner/tags/dfir/</link>
       <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/dfir/</guid>
+      <guid>http://localhost:1313/Netrunner/tags/dfir/</guid>
       <description></description>
     </item>
     <item>
       <title>MITRE ATT&amp;CK</title>
-      <link>https://ratfl.github.io/Netrunner/tags/mitre-attck/</link>
+      <link>http://localhost:1313/Netrunner/tags/mitre-attck/</link>
       <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/mitre-attck/</guid>
+      <guid>http://localhost:1313/Netrunner/tags/mitre-attck/</guid>
       <description></description>
     </item>
     <item>
       <title>OpenStack</title>
-      <link>https://ratfl.github.io/Netrunner/tags/openstack/</link>
+      <link>http://localhost:1313/Netrunner/tags/openstack/</link>
       <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/openstack/</guid>
+      <guid>http://localhost:1313/Netrunner/tags/openstack/</guid>
       <description></description>
     </item>
     <item>
       <title>ActiveDirectory</title>
-      <link>https://ratfl.github.io/Netrunner/tags/activedirectory/</link>
+      <link>http://localhost:1313/Netrunner/tags/activedirectory/</link>
       <pubDate>Wed, 22 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/activedirectory/</guid>
+      <guid>http://localhost:1313/Netrunner/tags/activedirectory/</guid>
       <description></description>
     </item>
     <item>
       <title>NTLMRelay</title>
-      <link>https://ratfl.github.io/Netrunner/tags/ntlmrelay/</link>
+      <link>http://localhost:1313/Netrunner/tags/ntlmrelay/</link>
       <pubDate>Wed, 22 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/ntlmrelay/</guid>
+      <guid>http://localhost:1313/Netrunner/tags/ntlmrelay/</guid>
       <description></description>
     </item>
     <item>
       <title>WindowsForensics</title>
-      <link>https://ratfl.github.io/Netrunner/tags/windowsforensics/</link>
+      <link>http://localhost:1313/Netrunner/tags/windowsforensics/</link>
       <pubDate>Wed, 22 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/tags/windowsforensics/</guid>
+      <guid>http://localhost:1313/Netrunner/tags/windowsforensics/</guid>
       <description></description>
     </item>
   </channel>

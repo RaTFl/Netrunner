@@ -2,18 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>DMZ on The Netrunner Blog</title>
-    <link>https://ratfl.github.io/Netrunner/tags/dmz/</link>
+    <link>http://localhost:1313/Netrunner/tags/dmz/</link>
     <description>Recent content in DMZ on The Netrunner Blog</description>
     <generator>Hugo</generator>
     <language>es</language>
-    <lastBuildDate>Sun, 03 May 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://ratfl.github.io/Netrunner/tags/dmz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/Netrunner/tags/dmz/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Diseño e Implementación de Infraestructura de red segura en EcoSea Systems S.A.</title>
-      <link>https://ratfl.github.io/Netrunner/posts/red_segura/</link>
+      <title>Diseño e Implementación de Infraestructura de red segura Parte 2</title>
+      <link>http://localhost:1313/Netrunner/posts/red_segura2/</link>
+      <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/Netrunner/posts/red_segura2/</guid>
+      <description>&lt;p&gt; &lt;/p&gt;&#xA;&lt;h3 id=&#34;-enfoque-del-proyecto&#34;&gt;📘 Enfoque del Proyecto&lt;/h3&gt;&#xA;&lt;p&gt;Este artículo no pretende ser un tutorial técnico paso a paso, sino un &lt;strong&gt;Caso de Estudio sobre arquitectura de seguridad&lt;/strong&gt;. El objetivo es demostrar cómo una organización con presupuesto limitado puede transformar una infraestructura crítica vulnerable en una fortaleza digital utilizando soluciones &lt;strong&gt;Open Source&lt;/strong&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Cada decisión técnica aquí expuesta fue tomada priorizando el equilibrio entre la &lt;strong&gt;seguridad robusta&lt;/strong&gt; y la &lt;strong&gt;continuidad operativa&lt;/strong&gt;, evitando soluciones innecesariamente complejas que pudieran sobrecargar la administración de una red de aproximadamente 35 hosts.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Diseño e Implementación de Infraestructura de red segura Parte 1</title>
+      <link>http://localhost:1313/Netrunner/posts/red_segura/</link>
       <pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://ratfl.github.io/Netrunner/posts/red_segura/</guid>
-      <description>&lt;p&gt; &lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;h2 id=&#34;este-proyecto-de-infraestructura-segura-fue-desarrollado-como-caso-de-estudio-de-finalización-de-grado-simulando-un-entorno-empresarial-real-con-vulnerabilidades-críticas-e-infraestructura-expuesta&#34;&gt;&lt;strong&gt;&lt;code&gt;Este proyecto de infraestructura segura fue desarrollado como caso de estudio de finalización de grado, simulando un entorno empresarial real con vulnerabilidades críticas e infraestructura Expuesta&lt;/code&gt;&lt;/strong&gt;&lt;/h2&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Parte 1:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;📖 &lt;em&gt;En este post:&lt;/em&gt;&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Reconstrucción del ataque&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Diseño de red segmentada&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;VLANs y troncales&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;STP y root bridge&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Seguridad de puertos&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;h2 id=&#34;-perfil-corporativo-ecosea-systems-sa&#34;&gt;🏢 Perfil Corporativo: EcoSea Systems S.A.&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;EcoSea Systems&lt;/strong&gt; es una empresa líder en la región dedicada al procesamiento, empaque y distribución de productos del mar de alta exportación. Con una planta de operaciones que funciona 24/7, la continuidad de sus servicios digitales es el motor de su cadena de suministro.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/Netrunner/posts/red_segura/</guid>
+      <description>&lt;p&gt; &lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;h3 id=&#34;este-proyecto-de-infraestructura-segura-fue-desarrollado-como-caso-de-estudio-de-finalización-de-grado-simulando-un-entorno-empresarial-real-con-vulnerabilidades-críticas-e-infraestructura-expuesta&#34;&gt;&lt;strong&gt;Este proyecto de infraestructura segura fue desarrollado como caso de estudio de finalización de grado, simulando un entorno empresarial real con vulnerabilidades críticas e infraestructura Expuesta&lt;/strong&gt;&lt;/h3&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Parte 1:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;📖 &lt;em&gt;En este post:&lt;/em&gt;&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Reconstrucción del ataque&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Diseño de red segmentada&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;VLANs y troncales&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;STP y root bridge&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Seguridad de puertos&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;h2 id=&#34;-perfil-corporativo-ecosea-systems-sa&#34;&gt;🏢 Perfil Corporativo: EcoSea Systems S.A.&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;EcoSea Systems&lt;/strong&gt; es una empresa líder en la región dedicada al procesamiento, empaque y distribución de productos del mar de alta exportación. Con una planta de operaciones que funciona 24/7, la continuidad de sus servicios digitales es el motor de su cadena de suministro.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

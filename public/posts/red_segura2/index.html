@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/Netrunner/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=Netrunner/livereload" data-no-instant defer></script>
+  
+    <title>Diseño e Implementación de Infraestructura de red segura Parte 2 :: The Netrunner Blog</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Segunda parte de implementación de seguridad en una red empresarial" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="http://localhost:1313/Netrunner/posts/red_segura2/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/code.min.d529ea4b2fb8d34328d7d31afc5466d5f7bc2f0bc9abdd98b69385335d7baee4.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/Netrunner/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="http://localhost:1313/Netrunner/favicon.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/Netrunner/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Diseño e Implementación de Infraestructura de red segura Parte 2">
+<meta property="og:description" content="Segunda parte de implementación de seguridad en una red empresarial" />
+<meta property="og:url" content="http://localhost:1313/Netrunner/posts/red_segura2/" />
+<meta property="og:site_name" content="The Netrunner Blog" />
+
+  <meta property="og:image" content="http://localhost:1313/Netrunner/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2026-05-08 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/Netrunner/css/custom.css">
+
+
+</head>
+<body>
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="http://localhost:1313/Netrunner/">
+        <div class="logo" style="font-family: monospace;">
+          The Netrunner Blog
+        </div>
+      </a>
+      
+    </div>
+  </div>
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="http://localhost:1313/Netrunner/posts/red_segura2/">Diseño e Implementación de Infraestructura de red segura Parte 2</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2026-05-08</time></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="http://localhost:1313/Netrunner/tags/redes/">Redes</a>&nbsp;
+      
+      #<a href="http://localhost:1313/Netrunner/tags/arquitectura/">Arquitectura</a>&nbsp;
+      
+      #<a href="http://localhost:1313/Netrunner/tags/pfsense/">pfSense</a>&nbsp;
+      
+      #<a href="http://localhost:1313/Netrunner/tags/dmz/">DMZ</a>&nbsp;
+      
+      #<a href="http://localhost:1313/Netrunner/tags/openvpn/">OpenVPN</a>&nbsp;
+      
+      #<a href="http://localhost:1313/Netrunner/tags/suricata/">Suricata</a>&nbsp;
+      
+      #<a href="http://localhost:1313/Netrunner/tags/wireshark/">Wireshark</a>&nbsp;
+      
+      #<a href="http://localhost:1313/Netrunner/tags/hardening/">Hardening</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p> </p>
+<h3 id="-enfoque-del-proyecto">📘 Enfoque del Proyecto<a href="#-enfoque-del-proyecto" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Este artículo no pretende ser un tutorial técnico paso a paso, sino un <strong>Caso de Estudio sobre arquitectura de seguridad</strong>. El objetivo es demostrar cómo una organización con presupuesto limitado puede transformar una infraestructura crítica vulnerable en una fortaleza digital utilizando soluciones <strong>Open Source</strong>.</p>
+<p>Cada decisión técnica aquí expuesta fue tomada priorizando el equilibrio entre la <strong>seguridad robusta</strong> y la <strong>continuidad operativa</strong>, evitando soluciones innecesariamente complejas que pudieran sobrecargar la administración de una red de aproximadamente 35 hosts.</p>
+<p> </p>
+<blockquote>
+<p><strong>❕:</strong> Esta es la continuación directa de la <a href="https://ratfl.github.io/Netrunner/posts/red_segura/">Parte 1</a>. Si no la has leído, te recomiendo empezar allí, donde configuramos VLANs, troncales, STP y seguridad de puertos. En esta segunda parte, <strong>reemplazamos el router Cisco temporal por pfSense</strong> para añadir el cerebro de la seguridad: firewall, IDS y acceso remoto cifrado.</p>
+</blockquote>
+<p> </p>
+<p> </p>
+<h2 id="-en-este-post-parte-2">📖 En este post (Parte 2):<a href="#-en-este-post-parte-2" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>
+<p>pfSense (aclaración metodológica)</p>
+</li>
+<li>
+<p>Reglas de firewall: aislamiento DMZ → LAN</p>
+</li>
+<li>
+<p>Port forwarding para servicios públicos (web)</p>
+</li>
+<li>
+<p>IDS Suricata con reglas personalizadas</p>
+</li>
+<li>
+<p>OpenVPN para acceso remoto seguro</p>
+</li>
+<li>
+<p>Hardening en servidores</p>
+</li>
+</ul>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="-1-de-router-cisco-a-pfsense-por-qué-este-cambio-es-crucial">🔥 1. De router Cisco a pfSense: por qué este cambio es crucial<a href="#-1-de-router-cisco-a-pfsense-por-qué-este-cambio-es-crucial" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>En la Parte 1 usamos un router Cisco en Packet Tracer <strong>solo para validar que las VLANs y los trunks funcionaban</strong>. Pero un router convencional no tiene firewall de verdad, ni IDS, ni VPN. Por eso, en la solución real, el encargado de <strong>enrutar entre VLANs y aplicar seguridad</strong> será <strong>pfSense</strong>.</p>
+<p> </p>
+<p><strong><em>Como Packet Tracer no soporta pfSense. La implementación de firewall, IDS y VPN se realizó en un entorno de máquinas virtuales (pfSense + Ubuntu Server + Windows Server), replicando fielmente la topología diseñada.</em></strong></p>
+<p> </p>
+<p><img src="arranquePfSense.png" alt="Fig 1"></p>
+<blockquote>
+<p>📌 <strong>Sobre el entorno virtual:</strong> Para respetar el aislamiento entre LAN y DMZ, se configuraron dos redes internas en VirtualBox: <code>LAN_VM</code> (192.168.10.0/24) y <code>DMZ_VM</code> (192.168.20.0/24) respetando las redes asignadas a cada VLAN en el diseño de red. Cada una corre en una máquina virtual diferente, emulando la separación física que exige una DMZ real.</p>
+</blockquote>
+<p> </p>
+<h3 id="una-vez-instalado-pfsense-accedemos-a-su-interfaz-web-para-empezar-a-configurar-el-firewall">Una vez instalado pfSense, accedemos a su interfaz web para empezar a configurar el firewall:<a href="#una-vez-instalado-pfsense-accedemos-a-su-interfaz-web-para-empezar-a-configurar-el-firewall" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><img src="dashboardWeb.png" alt="Fig 2"></p>
+<p> </p>
+<hr>
+<p> </p>
+<p> </p>
+<h2 id="-2-reglas-de-firewall-el-corazón-de-la-segmentación">🚫 2. Reglas de firewall: el corazón de la segmentación<a href="#-2-reglas-de-firewall-el-corazón-de-la-segmentación" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>El objetivo principal es <strong>aislar la DMZ</strong> (donde está el servidor web) de la <strong>LAN interna</strong> (donde están los datos sensibles y el controlador de dominio). Con pfSense aplicamos dos tipos de reglas:</p>
+<p><img src="reglasF.png" alt="Fig 3"></p>
+<p> </p>
+<h3 id="-21-regla-que-permite-salida-desde-dmz-a-internet">✅ 2.1 Regla que permite salida desde DMZ a Internet<a href="#-21-regla-que-permite-salida-desde-dmz-a-internet" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>El servidor web necesita actualizarse y consultar servicios externos. Creamos una regla que permite <strong>todo el tráfico desde DMZ hacia WAN</strong>:</p>
+<p><img src="DMZtoWAN.png" alt="Fig 4"></p>
+<p> </p>
+<h3 id="y-lo-comprobamos-haciendo-un-ping-a-8888-desde-el-servidor-web-vía-ssh">Y lo comprobamos haciendo un ping a <code>8.8.8.8</code> desde el servidor web (vía SSH):<a href="#y-lo-comprobamos-haciendo-un-ping-a-8888-desde-el-servidor-web-vía-ssh" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><img src="ping8888.png" alt="Fig 5"></p>
+<p> </p>
+<p> </p>
+<h3 id="-22-regla-que-bloquea-todo-tráfico-de-dmz-a-lan-la-más-importante">❌ 2.2 Regla que bloquea todo tráfico de DMZ a LAN (la más importante)<a href="#-22-regla-que-bloquea-todo-tráfico-de-dmz-a-lan-la-más-importante" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Si el atacante compromete el servidor web, <strong>no debe poder moverse lateralmente</strong> hacia la LAN. Esta regla lo impide:</p>
+<p><img src="DMZtoLANX.png" alt="Fig 6"></p>
+<p> </p>
+<p>Validamos la regla haciendo un ping desde la DMZ a un PC de la LAN (<code>192.168.10.2</code>) y <strong>no hay respuesta</strong>:</p>
+<h3 id="esto-es-exactamente-lo-que-evita-el-movimiento-lateral-el-atacante-queda-atrapado-en-la-dmz"><strong>Esto es exactamente lo que evita el movimiento lateral. El atacante queda atrapado en la DMZ</strong><a href="#esto-es-exactamente-lo-que-evita-el-movimiento-lateral-el-atacante-queda-atrapado-en-la-dmz" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><img src="pingDMZtoLAN.png" alt="Fig 7"></p>
+<p> </p>
+<p> </p>
+<h3 id="-23-comunicación-legítima-lan--dmz-y-lan--internet">✅ 2.3 Comunicación legítima: LAN → DMZ y LAN → Internet<a href="#-23-comunicación-legítima-lan--dmz-y-lan--internet" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Los usuarios de la LAN sí deben poder acceder al sitio web público (por ejemplo, para consultar la aplicación web). Por lo tanto, el tráfico <strong>desde LAN hacia DMZ está permitido</strong> además de tener salida a internet:</p>
+<p><img src="pingLANtoDMZandWAN.png" alt="Fig 8"></p>
+<p> </p>
+<blockquote>
+<p>📌 <strong>Resumen de flujos:</strong></p>
+<ul>
+<li>
+<p><code>WAN → DMZ</code>: solo servicios publicados (web, SSH mediante port forwarding).</p>
+</li>
+<li>
+<p><code>DMZ → WAN</code>: permitido (actualizaciones, consultas externas).</p>
+</li>
+<li>
+<p><code>DMZ → LAN</code>: <strong>bloqueado totalmente</strong>.</p>
+</li>
+<li>
+<p><code>LAN → DMZ</code>: permitido (usuarios ven el sitio web).</p>
+</li>
+<li>
+<p><code>LAN → WAN</code>: permitido.</p>
+</li>
+<li>
+<p><code>WAN → LAN</code>: <strong>bloqueado</strong> (solo se accede por VPN).</p>
+</li>
+</ul>
+</blockquote>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="-3-port-forwarding-dnat-publicando-servicios-de-forma-controlada">🔌 3. Port forwarding (DNAT): publicando servicios de forma controlada<a href="#-3-port-forwarding-dnat-publicando-servicios-de-forma-controlada" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p> </p>
+<p><img src="NATportforward.png" alt="Fig 9"></p>
+<p> </p>
+<p>Para que los clientes de Internet puedan acceder al <strong>sitio web</strong> público, usamos Port Forwarding en pfSense:</p>
+<ul>
+<li>El puerto <strong>8080</strong> de la WAN se redirige al puerto <strong>80</strong> del servidor web en DMZ.</li>
+</ul>
+<p>Esto permite que cualquier usuario navegue por el sitio web sin necesidad de VPN.</p>
+<p> </p>
+<p>✅ <strong>Comprobación del acceso web desde WAN:</strong></p>
+<p><em>Acceso al servidor web desde un navegador en la WAN (8080 → 80)</em></p>
+<p><img src="web.png" alt="Fig 10"></p>
+<p> </p>
+<h3 id="-importante-ssh-no-se-debe-de-exponer-directamente">🚨 Importante: SSH no se debe de exponer directamente<a href="#-importante-ssh-no-se-debe-de-exponer-directamente" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>En la demostración técnica también configuramos una regla de port forwarding para SSH:</p>
+<ul>
+<li>Puerto <strong>2222</strong> de la WAN → puerto <strong>22</strong> del servidor web en DMZ.</li>
+</ul>
+<p><strong>Esto se hizo ÚNICAMENTE para validar que la redirección funciona y para que Suricata generara las alertas correspondientes.</strong> En un entorno de producción real, <strong>no se debe exponer SSH directamente a Internet</strong>, ni siquiera en puertos altos. El acceso administrativo (SSH a Linux, RDP a Windows) debe realizarse <strong>exclusivamente a través de la VPN</strong> que configuramos más adelante</p>
+<p>Por tanto, la regla de port forwarding para SSH <strong>se desactivará o eliminará</strong> una vez finalizadas las pruebas. La regla que realmente permanecerá activa es la de la web (8080 → 80), pues es de público acceso.</p>
+<p> </p>
+<p>✅ <strong>Comprobación del acceso SSH desde WAN (solo para demostración):</strong></p>
+<p><code>Conexión SSH desde WAN al puerto 2222 (redirige a puerto 22 del servidor DMZ), se tuvo que utilizar un comando el cual permitiese ignorar la incompatibilidad criptográfica entre la versión SSH de Metasploitable y el SSH en mi máquina.</code></p>
+<p><img src="sshWANtoDMZ.png" alt="Fig 11"></p>
+<p> </p>
+<p> </p>
+<hr>
+<p> </p>
+<p> </p>
+<h2 id="-4-ids-suricata-detección-personalizada-de-los-ataques-que-encontramos-en-el-forense">🕵️‍♂️ 4. IDS Suricata: detección personalizada de los ataques que encontramos en el forense<a href="#-4-ids-suricata-detección-personalizada-de-los-ataques-que-encontramos-en-el-forense" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>En la Parte 1 identificamos tres comportamientos maliciosos concretos:</p>
+<ol>
+<li>
+<p><strong><code>Escaneo de puertos</code></strong></p>
+</li>
+<li>
+<p><strong><code>Subida de archivo malicioso</code></strong> (POST a <code>/upload</code> + reverse shell)</p>
+</li>
+<li>
+<p><strong><code>Fuerza bruta contra SSH</code></strong></p>
+</li>
+</ol>
+<p>Ahora, <strong>Suricata</strong> (en modo IDS pasivo) monitoriza todo el tráfico que pasa por la interfaz WAN de pfSense y <strong>genera alertas</strong> ante esos patrones. Creamos reglas personalizadas para cada caso.</p>
+<p> </p>
+<h2 id="-regla-1-detección-del-syn-scan">📡 Regla 1: Detección del SYN scan<a href="#-regla-1-detección-del-syn-scan" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Como se vio en la primera parte de este post, encontramos un SYN scan (half-open) con Wireshark. Era la fase de reconocimiento del atacante. Ahora, Suricata lo detecta automáticamente gracias a una regla personalizada que implemente para este proyecto.</p>
+<p><em>Sintaxis de la regla:</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>alert tcp any any -&gt; 192.168.0.45 any (msg:&#34;[ALERTA] Escaneo de puertos SYN detectado&#34;; flags:S; threshold:type threshold, track by_src, count 20, seconds 10; sid:100004; rev:1; classtype:attempted-recon; priority:3;)
+</span></span></code></pre></div><p> </p>
+<h3 id="_alerta-generada_"><em>Alerta generada</em><a href="#_alerta-generada_" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><img src="reglaCustom.png" alt="Fig 12"></p>
+<p> </p>
+<h3 id="qué-hace-esta-regla"><strong>¿Qué hace esta regla?</strong><a href="#qué-hace-esta-regla" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<ul>
+<li>
+<p><code>flags:S</code> → Busca paquetes TCP con solo el flag SYN activo (el saludo inicial de un escaneo half-open).</p>
+</li>
+<li>
+<p><code>threshold:type threshold, track by_src, count 20, seconds 10</code> → Solo alerta cuando una misma IP origen envía <strong>20 o más SYN</strong> en un intervalo de <strong>10 segundos</strong>. Esto evita falsos positivos (por ejemplo, una conexión legítima que falla y reintenta) y se enfoca en comportamientos de escaneo.</p>
+</li>
+<li>
+<p><code>classtype:attempted-recon</code> → Clasifica el evento como &ldquo;intento de reconocimiento&rdquo;, una categoría estándar en IDS.</p>
+</li>
+</ul>
+<p>Con esta regla, <strong>cualquier escaneo de puertos tipo SYN desde la WAN generará una alerta en tiempo real</strong>.</p>
+<p> </p>
+<h3 id="-validación-lanzamos-un-escaneo-nmap-y-suricata-responde">✅ Validación: lanzamos un escaneo Nmap y Suricata responde<a href="#-validación-lanzamos-un-escaneo-nmap-y-suricata-responde" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Lanzamos un escaneo desde un host atacante en la WAN a la IP de pfSense (<code>192.168.0.45</code>), ejecutamos:</p>
+<p><img src="escaneoSYN.png" alt="Fig 13"></p>
+<p> </p>
+<p>El IDS Suricata, que monitoriza la interfaz WAN de pfSense, genera <strong>múltiples alertas</strong> en su archivo <code>alerts.log</code>:</p>
+<p>Cada línea corresponde a un puerto escaneado. El IDS está registrando cada paquete SYN que supere el umbral establecido, lo que demuestra que la regla funciona perfectamente</p>
+<p><img src="SYNscan.png" alt="Fig 14"></p>
+<p> </p>
+<blockquote>
+<p>El mismo comportamiento que detectamos en el .pcap durante el análisis forense <strong>ahora es identificado automáticamente por Suricata</strong>. El atacante ya no puede mapear la red sin dejar rastro.</p>
+</blockquote>
+<p> </p>
+<h3 id="-regla-adicional-detección-de-ping">📡 Regla adicional: Detección de ping<a href="#-regla-adicional-detección-de-ping" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>los atacantes suelen usar técnicas o diferentes combinaciones de escaneos para pasar desapercibidos y evitar falsos positivos en el sistema. Por ello, he optado por una <strong>regla de Suricata para el ICMP inicial (Ping)</strong> por tres razones:</p>
+<ul>
+<li><strong>Detección Temprana:</strong> El ping es el primer paso casi obligatorio para confirmar que un objetivo está &ldquo;vivo&rdquo; (aunque nmap permite saltarse esto con la flag <code>-Pn</code>).</li>
+<li><strong>Claridad:</strong> En una red segura, nadie desde el exterior debería hacer ping a nuestra infraestructura. Cualquier intento es, por definición, sospechoso.</li>
+<li><strong>Eficiencia:</strong> Es mejor identificar y bloquear al atacante en su primer contacto que esperar a que analice los servicios.</li>
+</ul>
+<p> </p>
+<p>Sintaxis de la regla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>alert icmp any any -&gt; 192.168.0.45 any (msg:&#34;[ALERTA] Ping detectado a pfSense&#34;; sid:100001; rev:1; classtype:icmp-event; itype:8; threshold: type limit, track by_src, count 1, seconds 10; priority:2;)
+</span></span></code></pre></div><p> </p>
+<h3 id="_ping-desde-wan-a-pfsense_"><em>ping desde WAN a pfSense</em><a href="#_ping-desde-wan-a-pfsense_" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><img src="pingApfsense.png" alt="Fig 15"></p>
+<p> </p>
+<h3 id="_ping-detectado_"><em>ping detectado</em><a href="#_ping-detectado_" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><img src="pingDetectado.png" alt="Fig 16"></p>
+<p> </p>
+<h3 id="_video-demostrativo_"><em>Video demostrativo:</em><a href="#_video-demostrativo_" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<div style="text-align: center; margin: 20px 0;">
+    <video width="100%" height="auto" autoplay loop muted playsinline style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <source src="clip1.mp4" type="video/mp4">
+    </video>
+</div>
+
+<p> </p>
+<blockquote>
+<p>&ldquo;❕: La IP WAN de pfSense varía entre 192.168.0.45 y 192.168.1.10 en las capturas debido a reconfiguraciones por cambio de ubicación (trabajo/hogar). La funcionalidad no se ve afectada.&rdquo;</p>
+</blockquote>
+<p> </p>
+<p> </p>
+<h3 id="-regla-2-detectar-el-ataque-original--post-a-upload">🌐 Regla 2: Detectar el ataque original – POST a <code>/upload</code><a href="#-regla-2-detectar-el-ataque-original--post-a-upload" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Recordarás que en los logs de Apache aparecía un <code>POST /upload</code> seguido de varios <code>GET</code>. Lo que indicaba la subida de una reverse shell. Creamos una regla que alerta exactamente ante ese método y URI:</p>
+<p>Sintaxis de la regla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>alert tcp any any -&gt; 192.168.0.45 8080 (msg:&#34;[ALERTA] WAN - Acceso HTTP en puerto 8080 detectado&#34;; sid:100002; rev:1; classtype:web-application-attack; flow:to_server,established; content:&#34;GET&#34;; http_method; threshold: type limit, track by_src, count 3, seconds 10; priority:3;)
+</span></span></code></pre></div><p> </p>
+<h3 id="_alerta-generada_-1"><em>Alerta generada</em><a href="#_alerta-generada_-1" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p><img src="alertaHTTP.png" alt="Fig 17"></p>
+<p> </p>
+<p>Si el atacante vuelve a intentar subir su shell, <strong>deja huella inmediata</strong>. El administrador recibe la alerta y puede bloquear la IP o tomar medidas.</p>
+<p> </p>
+<div style="text-align: center; margin: 20px 0;">
+    <video width="100%" height="auto" autoplay loop muted playsinline style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <source src="clip2.mp4" type="video/mp4">
+    </video>
+</div>
+
+<p> </p>
+<p> </p>
+<h3 id="-regla-3-detectar-fuerza-bruta-ssh">🔐 Regla 3: Detectar fuerza bruta SSH<a href="#-regla-3-detectar-fuerza-bruta-ssh" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>También creamos una regla que genera una alerta cada vez que se intenta conectar al puerto 2222 (redirigido al SSH del servidor web):</p>
+<p> </p>
+<p>Sintaxis de la regla:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>alert tcp any any -&gt; 192.168.0.45 2222 (msg:&#34;[ALERTA] WAN - Acceso SSH en puerto 2222&#34;; sid:100003; rev:2; classtype:attempted-admin; flow:to_server,established; content:&#34;SSH-&#34;; depth:4; threshold: type limit, track by_src, count 1, seconds 10; priority:2;)
+</span></span></code></pre></div><p> </p>
+<p><strong>Alerta generada al conectarnos por SSH desde WAN</strong></p>
+<p><img src="alertaSSH.png" alt="Fig 18">
+ </p>
+<blockquote>
+<p><strong>❕</strong> En un entorno productivo, esta regla se afinaría con una whitelist de IPs administrativas para evitar falsos positivos. Para la demostración, nos sirve para mostrar que <strong>cualquier intento de SSH queda registrado</strong>.</p>
+</blockquote>
+<p> </p>
+<div style="text-align: center; margin: 20px 0;">
+    <video width="100%" height="auto" autoplay loop muted playsinline style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <source src="clip3.mp4" type="video/mp4">
+    </video>
+</div>
+
+<p> </p>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="-5-openvpn-acceso-remoto-seguro-sin-exponer-rdpssh">🔐 5. OpenVPN: acceso remoto seguro sin exponer RDP/SSH<a href="#-5-openvpn-acceso-remoto-seguro-sin-exponer-rdpssh" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Antes, EcoSeaSystem exponía directamente los puertos SSH (22) y RDP (3389) a Internet, lo que facilitaba ataques de fuerza bruta. La solución es <strong>cancelar esa exposición y exigir VPN</strong> para cualquier administración remota.</p>
+<p>Configuramos un servidor <strong>OpenVPN</strong> en el propio pfSense. El proceso general incluye:</p>
+<ol>
+<li>
+<p>Crear una <strong>Autoridad Certificadora (CA)</strong> y un <strong>certificado de servidor</strong>.</p>
+</li>
+<li>
+<p>Configurar el servidor OpenVPN (SSL/TLS + autenticación por usuario/contraseña).</p>
+</li>
+<li>
+<p>Añadir una <strong>regla de firewall</strong> en la interfaz WAN que permita el tráfico UDP al puerto 1194.</p>
+</li>
+<li>
+<p>Crear un <strong>usuario</strong> y descargar su certificado cliente (archivo <code>.ovpn</code>).</p>
+</li>
+<li>
+<p>Conectar el cliente usando <code>openvpn --config cliente.ovpn</code>.</p>
+</li>
+</ol>
+<p> </p>
+<p><strong><code>Configuración del servidor OpenVPN (SSL/TLS + autenticación por usuario/contraseña)</code></strong></p>
+<p><img src="config_server_vpn.png" alt="Fig 19"></p>
+<p> </p>
+<p><strong><code>Regla de firewall para permitir VPN en puerto UDP 1194 desde WAN</code></strong>
+<img src="VPNinterface.png" alt="Fig 20"></p>
+<p> </p>
+<p>Una vez conectado, el administrador obtiene una IP virtual (por ejemplo, <code>10.8.8.x</code>) y puede acceder a los servidores por su IP privada <strong>como si estuviera dentro de la red local</strong>. La conexión está completamente cifrada y los puertos de administración (SSH, RDP) <strong>no quedan expuestos a Internet</strong>.</p>
+<p> </p>
+<div style="text-align: center; margin: 20px 0;">
+    <video width="100%" height="auto" autoplay loop muted playsinline style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <source src="clip4.mp4" type="video/mp4">
+    </video>
+</div>
+
+<p> </p>
+<blockquote>
+<p>Con esta configuración, PearSPA elimina por completo la superficie de ataque de los servicios de administración remota. Cualquier intento de conexión SSH o RDP directo desde WAN es bloqueado por el firewall; solo quienes tengan el certificado y credenciales de la VPN pueden acceder.</p>
+</blockquote>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="-fase-5-hardening-de-sistemas">🛡️ Fase 5: Hardening de Sistemas<a href="#-fase-5-hardening-de-sistemas" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Una red segura no es suficiente si los servidores internos mantienen puertas abiertas. El <strong>Hardening</strong> consiste en minimizar la superficie de ataque eliminando funciones, puertos y permisos innecesarios que un atacante podría explotar tras una intrusión inicial.</p>
+<h3 id="-51-seguridad-en-entornos-linux-ubuntu-server">🐧 5.1. Seguridad en Entornos Linux (Ubuntu Server)<a href="#-51-seguridad-en-entornos-linux-ubuntu-server" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Para el servidor web y de archivos, el enfoque fue la limpieza y la auditoría profunda de permisos:</p>
+<ul>
+<li>
+<p><strong>Auditoría con LinPEAS:</strong> Herramientas de enumeración para detectar de forma automatizada vectores de escalada de privilegios, como archivos con bits <strong>SUID</strong> mal configurados, <strong>capabilities</strong> excesivas en binarios y servicios expuestos innecesariamente.</p>
+</li>
+<li>
+<p><strong>Reducción de Superficie:</strong> Se deshabilitaron todos los puertos y servicios sin uso operativo (como el caso del servicio <code>vsftpd</code> vulnerable detectado en la Fase 1).</p>
+</li>
+<li>
+<p><strong>Control de Acceso:</strong> Refuerzo del servicio SSH mediante el uso exclusivo de llaves públicas y la deshabilitación del acceso directo como usuario <em>root</em>.</p>
+</li>
+</ul>
+<p><img src="hardLinux.png" alt="Fig 21"></p>
+<p> </p>
+<p> </p>
+<h3 id="-52-seguridad-en-windows-server-2019-active-directory">🪟 5.2. Seguridad en Windows Server 2019 (Active Directory)<a href="#-52-seguridad-en-windows-server-2019-active-directory" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>En el corazón de la gestión de identidades de EcoSea Systems, las medidas se centraron en el control de privilegios:</p>
+<ul>
+<li>
+<p>Principio de Mínimo Privilegio: Reestructuración de grupos y permisos en el Active Directory para asegurar que cada usuario y servicio tenga estrictamente lo necesario para su función.</p>
+</li>
+<li>
+<p>Auditoría de Directorio Activo: Para organizaciones de este tamaño, es vital el uso de herramientas como BloodHound para visualizar rutas de ataque de escalada de privilegios, o alternativas más ligeras como PingCastle para obtener un reporte rápido del estado de salud y seguridad del AD.</p>
+</li>
+<li>
+<p>Políticas de Grupo (GPO): Implementación de políticas para el endurecimiento de contraseñas, bloqueo de cuentas ante ataques de fuerza bruta y restricción de ejecución de scripts no firmados.</p>
+</li>
+</ul>
+<p><img src="eventID.png" alt="Fig 22"></p>
+<p> </p>
+<p> </p>
+<hr>
+<p> </p>
+<h2 id="-conclusión-de-red-plana-a-defensa-en-profundidad">✅ Conclusión: De red plana a defensa en profundidad<a href="#-conclusión-de-red-plana-a-defensa-en-profundidad" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>EcoSea System partió siendo un ejemplo clásico de PYME vulnerable: red plana, servicios expuestos, sin controles perimetrales ni visibilidad. En la <strong>Parte 1</strong> segmentamos la red con VLANs, aseguramos los puertos y blindamos la capa de conmutación.</p>
+<p>En esta <strong>Parte 2</strong> completamos la transformación:</p>
+<ul>
+<li>
+<p>🔥 <strong>pfSense</strong> aplica reglas estrictas que aíslan la DMZ de la LAN.</p>
+</li>
+<li>
+<p>🕵️‍♂️ <strong>Suricata</strong> detecta escaneos SYN, fuerza bruta y el mismo ataque <code>/upload</code> que encontramos en el forense.</p>
+</li>
+<li>
+<p>🔐 <strong>OpenVPN</strong> elimina la exposición de RDP y SSH a Internet.</p>
+</li>
+</ul>
+<p>El resultado es una infraestructura <strong>segmentada, monitoreada y con acceso remoto seguro</strong>, construida íntegramente con software de código abierto y hardware accesible. La misma inversión que haría cualquier PYME.</p>
+<p> </p>
+<blockquote>
+<p><em>&ldquo;El atacante no entró por magia. Entró porque la puerta estaba abierta. Ahora no solo está cerrada, sino que tiene alarma, vigilancia y llave única.&rdquo;</em></p>
+</blockquote>
+<p> </p>
+<h2 id="-qué-sigue-centralización-de-logs-con-elk-un-waf-ligero-suricata-en-modo-ips-wazuh-mfa--quizás-en-una-próxima-implementación-pero-con-lo-que-ya-tenemos-ecosea-system-ya-no-es-un-blanco-fácil">📌 <strong>¿Qué sigue?</strong> Centralización de logs con ELK, un WAF ligero, Suricata en modo IPS, WAZUH, MFA ¿?. Quizás en una próxima implementación. Pero con lo que ya tenemos, EcoSea System ya no es un blanco fácil.<a href="#-qué-sigue-centralización-de-logs-con-elk-un-waf-ligero-suricata-en-modo-ips-wazuh-mfa--quizás-en-una-próxima-implementación-pero-con-lo-que-ya-tenemos-ecosea-system-ya-no-es-un-blanco-fácil" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+
+      </div></div>
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2026 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/Netrunner/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
